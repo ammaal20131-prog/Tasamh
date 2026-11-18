@@ -81,6 +81,7 @@ body.tmode .splash{display:none}
 .splash .in{display:grid;justify-items:center;gap:6px;max-width:520px}
 .splash .logo{height:150px;width:auto;margin-bottom:4px}
 .splash .min{font-size:22px;font-weight:700;color:var(--violet)}
+.splash .dept{font-size:15px;font-weight:500;color:var(--soft)}
 .splash h2{font-size:22px;font-weight:800;color:var(--plum)}
 .splash h1{font-size:clamp(46px,12vw,84px);margin:6px 0 0}
 .splash p{font-weight:300;font-size:17px;color:var(--ink)}
@@ -200,16 +201,6 @@ textarea:focus,input:focus,select:focus{outline:0;border-color:var(--violet);box
 .fb.try{background:var(--warn-bg);color:#8a4317}
 .fb b{display:block}
 
-/* العهد */
-.vow{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;background:linear-gradient(135deg,var(--violet),#a04fa6 55%,var(--rose));color:#fff;border-radius:32px;padding:34px;box-shadow:var(--shadow)}
-.vow h2{color:#fff;font-size:clamp(26px,4.6vw,40px)}
-.vow p{font-weight:300;opacity:.95}
-.vow .big{font-size:46px;font-weight:800;line-height:1.2;font-variant-numeric:tabular-nums}
-.vow-btn{width:150px;height:150px;border-radius:50%;border:0;cursor:pointer;background:#fff;color:var(--violet);font-weight:800;font-size:15px;line-height:1.6;display:grid;place-content:center;justify-items:center;gap:2px;box-shadow:0 0 0 10px rgba(255,255,255,.18),0 0 0 22px rgba(255,255,255,.1);transition:transform .2s}
-.vow-btn:hover{transform:scale(1.04)}
-.vow-btn svg{width:40px;height:40px;fill:var(--rose);animation:beat 1.6s infinite}
-.vow-btn.done{background:rgba(255,255,255,.2);color:#fff;cursor:default}
-.vow-btn.done svg{fill:#fff;animation:none}
 
 /* الحائط */
 .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
@@ -280,7 +271,7 @@ textarea:focus,input:focus,select:focus{outline:0;border-color:var(--violet);box
 #teacher{display:none;padding:36px 0 60px}
 body.tmode #teacher{display:block}
 body.tmode main>section:not(#teacher),body.tmode .tabbar,body.tmode .links{display:none}
-.tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:20px}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
 .tile{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:14px 16px}
 .tile b{display:block;font-size:32px;line-height:1.25;color:var(--violet);font-variant-numeric:tabular-nums;font-weight:800}
 .tile span{font-size:13px;color:var(--soft)}
@@ -306,7 +297,6 @@ footer a{color:inherit}
   .hero{padding:26px 0 40px}
   .hero .wrap,.two,.tree-wrap,.end{grid-template-columns:1fr}
   .flips{grid-template-columns:repeat(2,1fr)}
-  .vow{grid-template-columns:1fr;justify-items:center;text-align:center;padding:30px 20px}
   .tiles{grid-template-columns:repeat(2,1fr)}
   section.band{padding:44px 0}
   .seg span{font-size:12.5px;padding:9px 3px}
@@ -330,6 +320,7 @@ footer a{color:inherit}
   <div class="in">
     <img class="logo" id="spLogo" src="logo.png" alt="وزارة التعليم">
     <span class="min" id="spMin" hidden>وزارة التعليم</span>
+    <span class="dept" id="spDept">الإدارة العامة للتعليم بمنطقة عسير</span>
     <h2 id="spSchool">متوسطة خيبر الجنوب</h2>
     <h1>التسامح يجمعنا</h1>
     <p>ضعي إصبعك على البصمة واستمري بالضغط حتى يكتمل الإطار</p>
@@ -352,9 +343,9 @@ footer a{color:inherit}
       <span><small id="hdSchool">متوسطة خيبر الجنوب</small>التسامح يجمعنا</span>
     </a>
     <nav class="links" aria-label="أقسام الصفحة">
-      <a href="#join">شاركي</a><a href="#situations">المواقف</a><a href="#vow">العهد</a><a href="#wall">الحائط</a><a href="#family">الأسرة والمدرسة</a><a href="#tree">الشجرة</a><a href="#end">الختام</a>
+      <a href="#join">شاركي</a><a href="#situations">المواقف</a><a href="#wall">الحائط</a><a href="#family">الأسرة والمدرسة</a><a href="#tree">الشجرة</a><a href="#end">الختام</a>
     </nav>
-    <span class="stars" id="stars" title="إنجازاتكِ">⭐ ٠ / ٣</span>
+    <span class="stars" id="stars" title="إنجازاتكِ">⭐ ٠ / ٢</span>
   </div>
 </header>
 
@@ -370,7 +361,7 @@ footer a{color:inherit}
       <p class="lead">مبادرة تجمع الطالبات وأولياء الأمور والمعلمات في شجرة واحدة. كل مشاركة ورقة، وكل ورقة رسالة محبة. لا تسجيل ولا أسماء.</p>
       <div class="start">
         <a class="btn" href="#join">ابدئي مشاركتكِ</a>
-        <button class="btn ghost" type="button" id="replay">🔊 كلمة الافتتاح</button>
+        <button class="btn ghost" type="button" id="replay">🔊 مقولة خادم الحرمين الشريفين</button>
       </div>
     </div>
     <div class="meter">
@@ -382,7 +373,7 @@ footer a{color:inherit}
       <div class="trio">
         <div><b id="mStu">٠</b>من الطالبات</div>
         <div><b id="mPar">٠</b>من أولياء الأمور</div>
-        <div><b id="mVow">٠</b>عهد تسامح</div>
+        <div><b id="mStaff">٠</b>من المعلمات</div>
       </div>
       <div class="quick"><a href="#join">للطالبات</a><a href="#family">لأولياء الأمور والمعلمات</a><a href="#wall">الحائط</a><a href="#tree">الشجرة</a></div>
     </div>
@@ -439,7 +430,7 @@ footer a{color:inherit}
       </form>
       <div class="aside">
         <div class="card"><h3>قبل أن ترسلي</h3><ul><li>لا تكتبي اسمكِ ولا اسم أي زميلة.</li><li>اكتبي «صديقتي» أو «زميلتي» بدل الاسم.</li><li>يمكنكِ المشاركة بأكثر من طريقة.</li><li>ورقتكِ تظهر لكِ فورًا بإطار منقّط، وللجميع بعد موافقة المعلمة.</li></ul></div>
-        <div class="card"><h3>ماذا بعد؟</h3><ul><li>جرّبي المواقف الخمسة.</li><li>وقّعي عهد التسامح.</li><li>احصلي على وسامكِ في الختام.</li></ul></div>
+        <div class="card"><h3>ماذا بعد؟</h3><ul><li>جرّبي المواقف الخمسة.</li><li>اتركي قلبًا لمشاركات زميلاتكِ في الحائط.</li><li>احصلي على وسامكِ في الختام.</li></ul></div>
       </div>
     </div>
   </div>
@@ -451,21 +442,6 @@ footer a{color:inherit}
     <div class="head"><span class="step">الخطوة ٢</span><h2>ماذا ستفعلين؟</h2><p id="flipNote">ابدئي بقلب البطاقات لتحوّلي لحظة الغضب إلى تسامح، ثم أجيبي عن خمسة مواقف من يومكِ المدرسي.</p></div>
     <div class="flips" id="flips"></div>
     <div class="card quiz" id="quiz"></div>
-  </div>
-</section>
-
-<!-- العهد -->
-<section class="band" id="vow">
-  <div class="wrap">
-    <div class="vow">
-      <button class="vow-btn" id="vowBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8-5-8-11a4.6 4.6 0 0 1 8-3 4.6 4.6 0 0 1 8 3c0 6-8 11-8 11z"/></svg><span id="vowLbl">أتعهّد</span></button>
-      <div>
-        <span class="step rose">الخطوة ٣</span>
-        <h2>عهد التسامح</h2>
-        <p>«أتعهّد أن أعفو عمّن أخطأ، وأن أعتذر إن أخطأت، وأن أقول للناس حُسنًا.»</p>
-        <p style="margin-top:10px"><span class="big" id="vowCount">٠</span> وقّعوا العهد حتى الآن</p>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -486,7 +462,7 @@ footer a{color:inherit}
 <!-- الأسرة والمدرسة -->
 <section class="band" id="family">
   <div class="wrap">
-    <div class="head"><span class="step">الخطوة ٤ · لأولياء الأمور والمعلمات</span><h2>كلمتكم تُكمل الشجرة</h2><p>التسامح يبدأ من البيت ويكبر في المدرسة. شاركونا كلمة لبناتنا عن العفو والاحترام وقبول الآخر.</p></div>
+    <div class="head"><span class="step">الخطوة ٣ · لأولياء الأمور والمعلمات</span><h2>كلمتكم تُكمل الشجرة</h2><p>التسامح يبدأ من البيت ويكبر في المدرسة. شاركونا كلمة لبناتنا عن العفو والاحترام وقبول الآخر.</p></div>
     <div class="two">
       <form class="card form" id="famForm">
         <div class="seg two-c" role="radiogroup" aria-label="صفة المشارك">
@@ -510,7 +486,7 @@ footer a{color:inherit}
 <!-- الشجرة -->
 <section class="band tint" id="tree">
   <div class="wrap">
-    <div class="head"><span class="step">الخطوة ٥</span><h2>شجرة التسامح</h2><p>كل مشاركة منشورة ورقة على الشجرة. اضغطي على أي ورقة لتقرئي رسالتها.</p></div>
+    <div class="head"><span class="step">الخطوة ٤</span><h2>شجرة التسامح</h2><p>كل مشاركة منشورة ورقة على الشجرة. اضغطي على أي ورقة لتقرئي رسالتها.</p></div>
     <div class="tree-wrap">
       <div class="tree-box"><svg id="treeSvg" viewBox="0 0 800 780" role="img" aria-label="شجرة التسامح"></svg></div>
       <div class="side">
@@ -544,7 +520,6 @@ footer a{color:inherit}
       <div class="checks" id="checks">
         <div data-k="post"><i>✓</i>شاركتُ بورقة في الشجرة</div>
         <div data-k="quiz"><i>✓</i>أتممتُ المواقف الخمسة</div>
-        <div data-k="vow"><i>✓</i>وقّعتُ عهد التسامح</div>
       </div>
       <p style="font-weight:300;max-width:34em">التسامح لا ينتهي بانتهاء هذا اليوم. ابدئي غدًا بابتسامة لمن اختلفتِ معها، وشاركي رابط المبادرة مع أسرتكِ لتكبر الشجرة.</p>
       <div class="credits" id="credits"></div>
@@ -571,7 +546,6 @@ footer a{color:inherit}
         <div class="tile"><b id="sAll">٠</b><span>مجموع المشاركات</span></div>
         <div class="tile"><b id="sPending">٠</b><span>بانتظار المراجعة</span></div>
         <div class="tile"><b id="sApproved">٠</b><span>منشورة</span></div>
-        <div class="tile"><b id="sVows">٠</b><span>عهد تسامح</span></div>
       </div>
       <p class="hint" id="sRoles" style="margin-bottom:12px"></p>
       <div class="row">
@@ -590,7 +564,7 @@ footer a{color:inherit}
 
 </main>
 
-<footer>مبادرة «التسامح يجمعنا» · اليوم العالمي للتسامح<span id="footSchool"></span> · <a href="#teacher">لوحة المعلمة</a></footer>
+<footer>مبادرة «التسامح يجمعنا» · اليوم العالمي للتسامح · <span id="footDept">الإدارة العامة للتعليم بمنطقة عسير</span><span id="footSchool"></span> · <a href="#teacher">لوحة المعلمة</a></footer>
 
 <nav class="tabbar" aria-label="تنقل سريع">
   <a href="#home"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9h-6v-6H9v6H3z"/></svg>الرئيسية</a>
@@ -618,7 +592,7 @@ function note(box, msg, err){ box.className = "note" + (err ? " err" : ""); box.
 let PID = LS.get("tsm-pid", null);
 if(!PID){ PID = rid(); LS.set("tsm-pid", PID); }
 
-const SITE = Object.assign({ school: "متوسطة خيبر الجنوب", principal: "أ/ زهراء الشهراني", teacher: "أ/ أمل الشهري", goal: 200 }, window.SITE || {});
+const SITE = Object.assign({ dept: "الإدارة العامة للتعليم بمنطقة عسير", deptShort: "تعليم عسير", school: "متوسطة خيبر الجنوب", principal: "أ/ زهراء الشهراني", teacher: "أ/ أمل الشهري", goal: 200 }, window.SITE || {});
 const GOAL = Math.max(10, +SITE.goal || 200);
 const KIND = { sorry: "اعتذار", forgive: "مسامحة", thanks: "شكر" };
 const TYPE = { word: "عبارة", card: "بطاقة", letter: "رسالة من القلب", draw: "رسمة", leaf: "عبارة" };
@@ -627,7 +601,8 @@ const roleOf = p => ROLE[p.role] ? p.role : "student";
 const okImg = s => typeof s === "string" && /^data:image\/(jpeg|png|webp);base64,/.test(s);
 
 if(SITE.school){ $("#schoolName").textContent = " · " + SITE.school; $("#footSchool").textContent = " · " + SITE.school; }
-$("#spSchool").textContent = SITE.school; $("#hdSchool").textContent = "وزارة التعليم" + (SITE.school ? " · " + SITE.school : "");
+$("#spSchool").textContent = SITE.school; $("#spDept").textContent = SITE.dept; $("#footDept").textContent = SITE.dept;
+$("#hdSchool").textContent = [SITE.deptShort, SITE.school].filter(Boolean).join(" · ");
 [["#spLogo", "#spMin"], ["#hdLogo", null]].forEach(l => {
   const im = $(l[0]), bad = () => { im.hidden = true; if(l[1]) $(l[1]).hidden = false; };
   if(im.complete && !im.naturalWidth) bad(); else im.addEventListener("error", bad);
@@ -672,7 +647,7 @@ const FX = (function(){
 const CFG = window.FIREBASE_CONFIG || {};
 const LIVE = !!(CFG.apiKey && CFG.projectId);
 const FB_VER = "10.12.2";
-let approved = [], allPosts = [], vows = 0, isTeacher = false, store;
+let approved = [], allPosts = [], isTeacher = false, store;
 
 function loadScript(src){ return new Promise((res, rej) => { const s = document.createElement("script"); s.src = src; s.onload = res; s.onerror = rej; document.head.appendChild(s); }); }
 function showErr(msg){ const b = $("#errBanner"); b.textContent = msg; b.hidden = false; }
@@ -681,7 +656,7 @@ function demoStore(){
   const KEY = "tsm-demo-v2"; let d = LS.get(KEY, null);
   if(!d){
     const t = Date.now(), ex = (i, type, role, text, status, kind) => ({ id: "ex" + i, type, role, text, status: status || "approved", kind, createdAt: t - (20 - i) * 1000, pid: "ex-" + i });
-    d = { vows: 3, posts: [
+    d = { posts: [
       ex(1, "word", "student", "(مثال) التسامح زينة الأقوياء"),
       ex(2, "card", "student", "(مثال) سأبدأ أنا بالسلام"),
       ex(3, "letter", "student", "(مثال) شكرًا لصديقتي التي سامحتني قبل أن أعتذر.", "approved", "thanks"),
@@ -691,11 +666,10 @@ function demoStore(){
     ]};
     LS.set(KEY, d);
   }
-  function emit(){ LS.set(KEY, d); approved = d.posts.filter(p => p.status === "approved"); allPosts = d.posts.slice(); vows = d.vows; renderAll(); }
+  function emit(){ LS.set(KEY, d); approved = d.posts.filter(p => p.status === "approved"); allPosts = d.posts.slice(); renderAll(); }
   return {
     start(){ emit(); return Promise.resolve(); },
     add(p){ d.posts.push(p); emit(); return Promise.resolve(); },
-    vow(){ d.vows++; emit(); return Promise.resolve(); },
     login(){ isTeacher = true; emit(); return Promise.resolve(); },
     logout(){ isTeacher = false; renderAll(); return Promise.resolve(); },
     setStatus(id, st){ d.posts.forEach(p => { if(p.id === id) p.status = st; }); emit(); return Promise.resolve(); },
@@ -715,7 +689,6 @@ function liveStore(){
           firebase.initializeApp(CFG); db = firebase.firestore(); auth = firebase.auth();
           db.collection("posts").where("status", "==", "approved").onSnapshot(qs => { approved = snap(qs); renderAll(); },
             () => showErr("تعذّر تحميل المشاركات. تأكدي من قواعد Firestore في لوحة Firebase."));
-          db.collection("vows").onSnapshot(qs => { vows = qs.size; renderAll(); }, () => {});
           auth.onAuthStateChanged(u => {
             if(unsubAll){ unsubAll(); unsubAll = null; }
             isTeacher = !!u;
@@ -728,7 +701,6 @@ function liveStore(){
         });
     },
     add(p){ const o = Object.assign({}, p); delete o.id; return db.collection("posts").doc(p.id).set(o); },
-    vow(role){ return db.collection("vows").doc(PID).set({ role, createdAt: Date.now() }); },
     login(email, pass){ return auth.signInWithEmailAndPassword(email, pass); },
     logout(){ return auth.signOut(); },
     setStatus(id, st){ return db.collection("posts").doc(id).update({ status: st }); },
@@ -747,10 +719,9 @@ function rememberMine(p){ const m = LS.get("tsm-mine", []); const o = Object.ass
 const done = LS.get("tsm-done2", {});
 function markDone(k){ if(!done[k]){ done[k] = 1; LS.set("tsm-done2", done); } paintDone(); }
 function paintDone(){
-  const n = ["post", "quiz", "vow"].filter(k => done[k]).length;
-  $("#stars").textContent = "⭐ " + AR(n) + " / ٣";
+  const n = ["post", "quiz"].filter(k => done[k]).length;
+  $("#stars").textContent = "⭐ " + AR(n) + " / ٢";
   $$("#checks div").forEach(d => d.classList.toggle("ok", !!done[d.dataset.k]));
-  const b = $("#vowBtn"); b.classList.toggle("done", !!done.vow); $("#vowLbl").textContent = done.vow ? "وقّعتِ العهد" : "أتعهّد";
   drawMedal();
 }
 
@@ -845,7 +816,7 @@ $("#famForm").addEventListener("submit", function(e){
   function paint(){
     const i = playing(intro), m = playing(music);
     fab.classList.toggle("on", i || m); fabT.hidden = !(i || m);
-    fabT.textContent = i ? "إيقاف كلمة الافتتاح" : "إيقاف الصوت";
+    fabT.textContent = i ? "إيقاف المقولة" : "إيقاف الصوت";
     fab.setAttribute("aria-label", i || m ? fabT.textContent : "تشغيل الخلفية الصوتية");
     fab.hidden = noMusic && !i;
   }
@@ -923,7 +894,7 @@ function renderQuiz(){
     box.appendChild(el("div", "q-emoji", "🏅")); box.appendChild(el("p", "q-text", "أتممتِ المواقف الخمسة!"));
     box.appendChild(el("p", null, "اخترتِ التصرف المتسامح من المحاولة الأولى في " + AR(firstTry) + " من " + AR(QUIZ.length) + " مواقف. المهم أنكِ الآن تعرفين الطريق في كل موقف."));
     const r = el("div", "row"); r.style.marginTop = "18px";
-    const next = el("a", "btn", "وقّعي عهد التسامح"); next.href = "#vow";
+    const next = el("a", "btn", "إلى حائط التسامح"); next.href = "#wall";
     const again = el("button", "btn ghost", "إعادة المواقف"); again.type = "button"; again.addEventListener("click", () => { qi = 0; firstTry = 0; renderQuiz(); });
     r.appendChild(next); r.appendChild(again); box.appendChild(r); return;
   }
@@ -947,12 +918,6 @@ function renderQuiz(){
   box.appendChild(opts); box.appendChild(fb);
 }
 
-/* ---------- العهد ---------- */
-$("#vowBtn").addEventListener("click", function(){
-  if(done.vow) return;
-  const b = this; b.disabled = true;
-  store.vow(LS.get("tsm-role", "student")).catch(() => {}).then(() => { b.disabled = false; markDone("vow"); FX.at(b, 60); });
-});
 
 /* ---------- الحائط ---------- */
 const byNew = (a, b) => (b.createdAt || 0) - (a.createdAt || 0), byOld = (a, b) => (a.createdAt || 0) - (b.createdAt || 0);
@@ -1027,7 +992,7 @@ function renderTree(){
   $("#gNow").textContent = AR(n); $("#gBar").style.width = (pct * 100) + "%";
   $("#gMsg").textContent = n >= GOAL ? "اكتملت الشجرة! شكرًا لكل قلب متسامح 🌸" : n ? "بقي " + AR(GOAL - n) + " ورقة لتكتمل الشجرة." : "كوني من أوائل من يزرعن ورقة.";
   $("#mTotal").textContent = AR(n); $("#dialFg").style.strokeDashoffset = 565 * (1 - pct);
-  $("#mStu").textContent = AR(cnt.student); $("#mPar").textContent = AR(cnt.parent); $("#mVow").textContent = AR(vows); $("#vowCount").textContent = AR(vows);
+  $("#mStu").textContent = AR(cnt.student); $("#mPar").textContent = AR(cnt.parent); $("#mStaff").textContent = AR(cnt.staff);
 }
 $("#randLeaf").addEventListener("click", () => {
   if(!approved.length) return; let p;
@@ -1040,7 +1005,7 @@ let medalKey = "";
 function drawMedal(){
   const open = !!done.post; $("#medalLock").hidden = open; $("#medalImg").hidden = !open; $("#medalActs").hidden = !open;
   if(!open) return;
-  const role = LS.get("tsm-role", "student"), num = LS.get("tsm-num", 1), n = ["post", "quiz", "vow"].filter(k => done[k]).length;
+  const role = LS.get("tsm-role", "student"), num = LS.get("tsm-num", 1), n = ["post", "quiz"].filter(k => done[k]).length;
   const key = role + num + n; if(key === medalKey) return; medalKey = key;
   const title = role === "parent" ? "وسام شريك التسامح" : role === "staff" ? "وسام قدوة التسامح" : "وسام سفيرة التسامح";
   const go = () => {
@@ -1055,8 +1020,8 @@ function drawMedal(){
     x.fillStyle = "#6f3fa8"; x.font = "900 84px Alexandria, sans-serif"; x.fillText(title, 540, 560);
     x.fillStyle = "#2f1a47"; x.font = "500 38px Alexandria, sans-serif"; x.fillText("«بالتسامح نرتقي، وبالمحبة نلتقي»", 540, 650);
     x.fillStyle = "#4b3a5e"; x.font = "400 36px Alexandria, sans-serif"; x.fillText("ورقتي رقم " + AR(num) + " في شجرة التسامح", 540, 760);
-    x.fillStyle = "#d99a2b"; x.font = "64px serif"; x.fillText("★".repeat(n) + "☆".repeat(3 - n), 540, 850);
-    x.fillStyle = "#85749a"; x.font = "500 30px Alexandria, sans-serif"; x.fillText("وزارة التعليم" + (SITE.school ? " · " + SITE.school : ""), 540, 940);
+    x.fillStyle = "#d99a2b"; x.font = "64px serif"; x.fillText("★".repeat(n) + "☆".repeat(2 - n), 540, 850);
+    x.fillStyle = "#85749a"; x.font = "500 30px Alexandria, sans-serif"; x.fillText(SITE.dept, 540, 905); x.fillText("وزارة التعليم" + (SITE.school ? " · " + SITE.school : ""), 540, 955);
     const url = c.toDataURL("image/png"); $("#medalImg").src = url; $("#medalSave").href = url;
   };
   (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(go, go);
@@ -1069,7 +1034,7 @@ function renderTeacher(){
   if(!isTeacher) return;
   const pids = {}, rc = { student: 0, parent: 0, staff: 0 }; let pend = 0, appr = 0;
   allPosts.forEach(p => { if(p.pid) pids[p.pid] = 1; rc[roleOf(p)]++; p.status === "approved" ? appr++ : pend++; });
-  $("#sPeople").textContent = AR(Object.keys(pids).length); $("#sAll").textContent = AR(allPosts.length); $("#sPending").textContent = AR(pend); $("#sApproved").textContent = AR(appr); $("#sVows").textContent = AR(vows);
+  $("#sPeople").textContent = AR(Object.keys(pids).length); $("#sAll").textContent = AR(allPosts.length); $("#sPending").textContent = AR(pend); $("#sApproved").textContent = AR(appr);
   $("#sRoles").textContent = "الطالبات: " + AR(rc.student) + " مشاركة · أولياء الأمور: " + AR(rc.parent) + " · المعلمات والإدارة: " + AR(rc.staff);
   $("#approveAll").hidden = !pend;
   const list = allPosts.filter(p => (modF === "all" || (modF === "approved") === (p.status === "approved")) && (modR === "all" || roleOf(p) === modR)).sort(byNew);
