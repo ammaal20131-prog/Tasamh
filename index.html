@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#6f3fa8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
   color-scheme:light;
@@ -21,7 +21,7 @@
 }
 /* الفكرة: صفحة واحدة، الشجرة في المنتصف وبجانبها صندوق صغير لإضافة ورقة */
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(900px 500px at 100% 0,#f3e4fb 0,transparent 70%),radial-gradient(700px 420px at 0 100%,#fdeaf2 0,transparent 70%),var(--paper);background-attachment:fixed;color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.9;overflow-x:hidden;min-height:100vh}
+body{margin:0;padding-bottom:84px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%236f3fa8' stroke-opacity='.07' stroke-width='1.2'%3E%3Cpath d='M60 18 72 48 102 60 72 72 60 102 48 72 18 60 48 48Z'/%3E%3Ccircle cx='60' cy='60' r='16'/%3E%3Cpath d='M0 0 18 18M120 0 102 18M0 120 18 102M120 120 102 102'/%3E%3C/g%3E%3C/svg%3E"),radial-gradient(900px 500px at 100% 0,#f3e4fb 0,transparent 70%),radial-gradient(700px 420px at 0 100%,#fdeaf2 0,transparent 70%),var(--paper);background-attachment:fixed;color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.9;overflow-x:hidden;min-height:100vh}
 h1,h2,h3,p{margin:0}
 h2,h3{color:var(--plum);font-weight:800;line-height:1.5}
 button,input,textarea,select{font:inherit;color:inherit}
@@ -58,7 +58,7 @@ body.tmode .splash{display:none}
 .splash .lbl{font-weight:700;font-size:15px;color:var(--soft);margin-top:10px}
 
 /* زر الصوت */
-.fab{position:fixed;z-index:45;bottom:18px;inset-inline-start:18px;display:flex;align-items:center;gap:8px;border:0;cursor:pointer;background:var(--violet);color:#fff;font-weight:700;font-size:13px;height:46px;min-width:46px;justify-content:center;padding:0 14px;border-radius:99px;box-shadow:0 14px 28px -12px var(--violet)}
+.fab{position:fixed;z-index:45;bottom:96px;inset-inline-start:18px;display:flex;align-items:center;gap:8px;border:0;cursor:pointer;background:var(--violet);color:#fff;font-weight:700;font-size:13px;height:46px;min-width:46px;justify-content:center;padding:0 14px;border-radius:99px;box-shadow:0 14px 28px -12px var(--violet)}
 .fab b{font-size:20px;line-height:1}
 .fab.on{background:var(--rose);box-shadow:0 14px 28px -12px var(--rose)}
 .fab.on b{animation:beat 1s infinite}
@@ -134,7 +134,54 @@ textarea:focus,input:focus,select:focus{outline:0;border-color:var(--violet);box
 /* لوحة المعلمة */
 #teacher{display:none;padding:28px 0 60px}
 body.tmode #teacher{display:block}
-body.tmode main>.stage,body.tmode main>.title,body.tmode main>.wallsec{display:none}
+body.tmode main>.stage,body.tmode main>.title,body.tmode main>.wallsec,body.tmode main>.band,body.tmode .bnav{display:none}
+body.tmode{padding-bottom:0}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+
+/* عناوين الأقسام */
+.band{padding:46px 0 30px;text-align:center}
+.kicker{display:inline-flex;align-items:center;gap:10px;color:var(--rose);font-weight:700;font-size:14px}
+.kicker::before,.kicker::after{content:"";width:34px;height:1.5px;background:currentColor;opacity:.5}
+.band h2{font-size:clamp(30px,5vw,46px);font-weight:900;margin:4px 0 0}
+.bar-line{width:90px;height:6px;border-radius:9px;margin:12px auto 10px;background:linear-gradient(90deg,var(--rose),var(--gold),var(--violet))}
+.band .sub{color:var(--soft);font-weight:300;margin-bottom:26px}
+
+/* ثمرات التسامح */
+.fruits{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.fruit{perspective:1000px;background:none;border:0;padding:0;cursor:pointer;height:200px}
+.fruit .in{position:relative;display:block;width:100%;height:100%;transition:transform .7s cubic-bezier(.4,1.3,.5,1);transform-style:preserve-3d}
+.fruit.on .in{transform:rotateY(180deg)}
+.fruit .f,.fruit .b{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:8px;padding:20px;border-radius:24px;backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:var(--shadow)}
+.fruit .f{background:#fff;border:1px solid var(--line)}
+.fruit .f b{font-size:44px;line-height:1}
+.fruit .f strong{font-size:19px;color:var(--plum)}
+.fruit .f small{font-size:12.5px;color:var(--soft)}
+.fruit .b{transform:rotateY(180deg);color:#fff;font-size:18px;font-weight:500;line-height:1.9}
+.fruit:nth-child(odd) .b{background:linear-gradient(135deg,#ef93b1,#d4568a)}
+.fruit:nth-child(even) .b{background:linear-gradient(135deg,#f7d579,#efae3e);color:#4a3205}
+.fruit:hover:not(.on) .in{transform:translateY(-6px)}
+
+/* آيات وأحاديث */
+.verses{max-width:860px;margin:0 auto}
+.vcard{position:relative;background:#fff;border:1px solid #f3d3e2;border-radius:30px;padding:34px 90px 30px;box-shadow:var(--shadow);min-height:250px;display:grid;place-content:center;gap:14px}
+.vtag{justify-self:center;background:var(--blush);color:var(--rose);font-weight:700;font-size:13px;padding:3px 18px;border-radius:99px;border:1px solid #f3c8db}
+.vtext{font-family:"Amiri",var(--body);font-size:clamp(22px,3.6vw,34px);line-height:1.9;color:var(--plum);margin:0;font-weight:700}
+.vsrc{color:#b07f22;font-weight:700;font-size:15px}
+.vcard.swap .vtext,.vcard.swap .vsrc,.vcard.swap .vtag{animation:fadein .6s ease}
+.varrow{position:absolute;top:50%;transform:translateY(-50%);width:54px;height:54px;border-radius:50%;border:1.5px solid #f3c8db;background:linear-gradient(135deg,var(--blush),#efe6fb);color:var(--rose);font-size:22px;cursor:pointer;display:grid;place-items:center}
+.varrow.next{inset-inline-start:18px}
+.varrow.prev{inset-inline-end:18px}
+.vcount{margin-top:16px;color:var(--rose);font-weight:700;font-variant-numeric:tabular-nums}
+.vdots{display:flex;gap:8px;justify-content:center;margin-top:8px}
+.vdots button{width:12px;height:12px;border-radius:99px;border:0;background:#f0bcd2;cursor:pointer;padding:0;transition:width .3s,background .3s}
+.vdots button.on{width:32px;background:var(--gold)}
+
+/* شريط التنقل السفلي */
+.bnav{position:fixed;inset-inline:0;bottom:0;z-index:44;display:flex;justify-content:center;gap:6px;padding:10px 10px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.93);backdrop-filter:blur(12px);border-top:1px solid var(--line);border-radius:22px 22px 0 0;box-shadow:0 -10px 30px -22px rgba(47,26,71,.5)}
+.bnav a{position:relative;flex:1;max-width:190px;text-align:center;text-decoration:none;color:var(--soft);font-weight:800;font-size:15px;padding:11px 6px;border-radius:16px;transition:background .2s,color .2s}
+.bnav a.on{color:var(--rose);background:linear-gradient(135deg,var(--blush),#fbf1dc);box-shadow:inset 0 0 0 1.5px #f3c8db}
+.bnav a.on::before{content:"";position:absolute;top:-10px;left:50%;width:30px;height:4px;margin-left:-15px;border-radius:9px;background:var(--gold)}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 /* حائط التسامح */
 .wallsec{padding:10px 0 40px}
 .wallhead{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
@@ -182,6 +229,12 @@ footer b{color:var(--plum);font-weight:500}
 footer a{color:inherit}
 
 @media (max-width:860px){
+  .fruits{grid-template-columns:repeat(2,1fr);gap:12px}
+  .fruit{height:180px}
+  .vcard{padding:28px 20px 80px}
+  .varrow{top:auto;bottom:16px;transform:none;width:46px;height:46px}
+  .bnav a{font-size:12.5px;padding:10px 2px}
+  .bnav .lg{display:none}
   .stage{grid-template-columns:1fr}
   .tiles{grid-template-columns:repeat(2,1fr)}
   .splash .logo{height:120px}
@@ -222,12 +275,12 @@ footer a{color:inherit}
 </header>
 
 <main class="wrap">
-  <div class="title">
+  <div class="title" id="home">
     <h1 class="grad">شجرة التسامح</h1>
     <p>«بالتسامح نرتقي، وبالمحبة نلتقي»</p>
   </div>
 
-  <div class="stage">
+  <div class="stage" id="tree">
     <div class="tree-box">
       <span class="count"><b id="gNow">٠</b> ورقة</span>
       <svg id="treeSvg" viewBox="0 0 800 780" role="img" aria-label="شجرة التسامح"></svg>
@@ -260,13 +313,38 @@ footer a{color:inherit}
     </div>
   </div>
 
-  <section class="wallsec" aria-labelledby="wallTitle">
+  <section class="wallsec" id="wall" aria-labelledby="wallTitle">
     <div class="wallhead">
       <h2 id="wallTitle">حائط التسامح 💌</h2>
       <span class="n" id="wallCount"></span>
       <button class="btn small ghost" type="button" id="shuffle">🔀 ترتيب عشوائي</button>
     </div>
-    <div class="wall" id="wall"></div>
+    <div class="wall" id="wallBox"></div>
+  </section>
+
+  <section class="band" id="fruits">
+    <span class="kicker">ماذا نجني؟</span>
+    <h2>ثمرات التسامح</h2>
+    <div class="bar-line"></div>
+    <p class="sub">اضغطي على البطاقة لتكتشفي ثمرتها</p>
+    <div class="fruits" id="fruitCards"></div>
+  </section>
+
+  <section class="band" id="verses">
+    <span class="kicker">من نور الوحي</span>
+    <h2>آيات وأحاديث</h2>
+    <div class="bar-line"></div>
+    <div class="verses">
+      <div class="vcard" id="vcard" aria-live="polite">
+        <span class="vtag" id="vtag"></span>
+        <p class="vtext" id="vtext"></p>
+        <span class="vsrc" id="vsrc"></span>
+        <button class="varrow prev" type="button" id="vPrev" aria-label="السابق">→</button>
+        <button class="varrow next" type="button" id="vNext" aria-label="التالي">←</button>
+      </div>
+      <div class="vcount" id="vcount"></div>
+      <div class="vdots" id="vdots"></div>
+    </div>
   </section>
 
 <section id="teacher">
@@ -303,6 +381,10 @@ footer a{color:inherit}
 </section>
 
 </main>
+
+<nav class="bnav" aria-label="أقسام الموقع">
+  <a href="#home">الرئيسية</a><a href="#tree">الشجرة</a><a href="#wall">الحائط</a><a href="#fruits">الثمرات</a><a href="#verses">آيات<span class="lg"> وأحاديث</span></a>
+</nav>
 
 <footer>
   مبادرة «التسامح يجمعنا» · اليوم العالمي للتسامح<br>
@@ -643,7 +725,7 @@ $("#loginForm").addEventListener("submit", function(e){
 let wallOrder = [], userPick = 0;
 function shuffleArr(a){ for(let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
 function renderWall(){
-  const box = $("#wall"), ids = new Set(approved.map(p => p.id)), byId = {};
+  const box = $("#wallBox"), ids = new Set(approved.map(p => p.id)), byId = {};
   approved.forEach(p => byId[p.id] = p);
   if(!wallOrder.length && approved.length) wallOrder = shuffleArr(approved.map(p => p.id));
   const fresh = approved.filter(p => !wallOrder.includes(p.id)).sort(byNew).map(p => p.id);
@@ -668,8 +750,65 @@ setInterval(() => {
   const l = $('#treeSvg .leaf[data-id="' + p.id + '"]'); if(l) l.classList.add("sel");
 }, 6000);
 
+/* ---------- ثمرات التسامح ---------- */
+[["💗", "في قلبي", "راحة البال وصفاء القلب، ونيل محبة الله ورضاه."],
+ ["🤝", "مع صديقاتي", "تقوى المودة، وتزول الخلافات، وتدوم الصداقة."],
+ ["🏫", "في مدرستي", "بيئة آمنة يسودها الاحترام والتعاون بين الجميع."],
+ ["🌍", "في مجتمعي", "مجتمع متماسك متحاب يرتقي ويزدهر."]].forEach(c => {
+  const b = el("button", "fruit"); b.type = "button"; b.setAttribute("aria-label", "ثمرة التسامح " + c[1]);
+  const inn = el("span", "in"), f = el("span", "f"), k = el("span", "b", c[2]);
+  f.appendChild(el("b", null, c[0])); f.appendChild(el("strong", null, c[1])); f.appendChild(el("small", null, "اضغطي لتكتشفي"));
+  inn.appendChild(f); inn.appendChild(k); b.appendChild(inn);
+  b.addEventListener("click", () => { const first = !b.dataset.seen; b.dataset.seen = 1; b.classList.toggle("on"); if(first) FX.at(b, 16); });
+  $("#fruitCards").appendChild(b);
+});
+
+/* ---------- آيات وأحاديث ---------- */
+const VERSES = [
+  ["آية كريمة", "﴿وَلْيَعْفُوا وَلْيَصْفَحُوا ۗ أَلَا تُحِبُّونَ أَن يَغْفِرَ اللَّهُ لَكُمْ﴾", "سورة النور - الآية ٢٢"],
+  ["آية كريمة", "﴿وَالْكَاظِمِينَ الْغَيْظَ وَالْعَافِينَ عَنِ النَّاسِ ۗ وَاللَّهُ يُحِبُّ الْمُحْسِنِينَ﴾", "سورة آل عمران - الآية ١٣٤"],
+  ["آية كريمة", "﴿ادْفَعْ بِالَّتِي هِيَ أَحْسَنُ فَإِذَا الَّذِي بَيْنَكَ وَبَيْنَهُ عَدَاوَةٌ كَأَنَّهُ وَلِيٌّ حَمِيمٌ﴾", "سورة فصلت - الآية ٣٤"],
+  ["آية كريمة", "﴿فَمَنْ عَفَا وَأَصْلَحَ فَأَجْرُهُ عَلَى اللَّهِ﴾", "سورة الشورى - الآية ٤٠"],
+  ["حديث شريف", "«ما نقصت صدقةٌ من مالٍ، وما زاد اللهُ عبدًا بعفوٍ إلا عِزًّا»", "حديث شريف - رواه مسلم"],
+  ["حديث شريف", "«لا يؤمنُ أحدُكم حتى يُحبَّ لأخيه ما يُحبُّ لنفسِه»", "حديث شريف - متفق عليه"],
+  ["حديث شريف", "«ليس الشديدُ بالصُّرَعة، إنما الشديدُ الذي يملكُ نفسَه عند الغضب»", "حديث شريف - متفق عليه"]
+];
+let vi = 0, vTimer = null;
+VERSES.forEach((_, i) => { const d = el("button"); d.type = "button"; d.setAttribute("aria-label", "النص " + AR(i + 1)); d.addEventListener("click", () => showVerse(i, true)); $("#vdots").appendChild(d); });
+function showVerse(i, byUser){
+  vi = (i + VERSES.length) % VERSES.length; const v = VERSES[vi], c = $("#vcard");
+  $("#vtag").textContent = v[0]; $("#vtext").textContent = v[1]; $("#vsrc").textContent = v[2];
+  $("#vcount").textContent = AR(vi + 1) + " من " + AR(VERSES.length);
+  $$("#vdots button").forEach((d, k) => d.classList.toggle("on", k === vi));
+  c.classList.remove("swap"); void c.offsetWidth; c.classList.add("swap");
+  if(byUser){ clearInterval(vTimer); vTimer = setInterval(() => showVerse(vi + 1), 9000); }
+}
+$("#vNext").addEventListener("click", () => showVerse(vi + 1, true));
+$("#vPrev").addEventListener("click", () => showVerse(vi - 1, true));
+showVerse(0); vTimer = setInterval(() => showVerse(vi + 1), 9000);
+
+/* ---------- شريط التنقل السفلي ---------- */
+(function(){
+  const navs = $$(".bnav a"), ids = ["home", "tree", "wall", "fruits", "verses"];
+  let lock = 0;
+  function spy(){
+    if(Date.now() < lock) return;
+    let cur = ids[0];
+    ids.forEach(id => { const n = document.getElementById(id); if(n && n.getBoundingClientRect().top <= innerHeight * .3) cur = id; });
+    if(innerHeight + scrollY >= document.documentElement.scrollHeight - 4) cur = ids[ids.length - 1];
+    navs.forEach(a => a.classList.toggle("on", a.getAttribute("href") === "#" + cur));
+  }
+  navs.forEach(a => a.addEventListener("click", () => { navs.forEach(x => x.classList.toggle("on", x === a)); lock = Date.now() + 1200; }));
+  addEventListener("scroll", spy, { passive: true }); addEventListener("resize", spy); spy();
+})();
+
 function renderAll(){ renderTree(); renderWall(); renderTeacher(); }
-function route(){ const t = location.hash === "#teacher"; document.body.classList.toggle("tmode", t); scrollTo(0, 0); }
+function route(){
+  const t = location.hash === "#teacher", was = document.body.classList.contains("tmode");
+  document.body.classList.toggle("tmode", t);
+  if(t && !was) scrollTo(0, 0);
+  else if(!t && was){ const n = document.getElementById(location.hash.slice(1)); n ? n.scrollIntoView() : scrollTo(0, 0); }
+}
 addEventListener("hashchange", route);
 store = LIVE ? liveStore() : demoStore();
 $("#demoBanner").hidden = LIVE;
