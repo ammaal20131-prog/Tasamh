@@ -134,7 +134,29 @@ textarea:focus,input:focus,select:focus{outline:0;border-color:var(--violet);box
 /* لوحة المعلمة */
 #teacher{display:none;padding:28px 0 60px}
 body.tmode #teacher{display:block}
-body.tmode main>.stage,body.tmode main>.title{display:none}
+body.tmode main>.stage,body.tmode main>.title,body.tmode main>.wallsec{display:none}
+/* حائط التسامح */
+.wallsec{padding:10px 0 40px}
+.wallhead{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.wallhead h2{font-size:clamp(24px,4vw,32px)}
+.wallhead .n{font-size:13px;color:var(--soft)}
+.wallhead .btn{margin-inline-start:auto}
+.wall{columns:4 220px;column-gap:14px}
+.note-card{break-inside:avoid;margin:0 0 14px;padding:16px 16px 12px;border-radius:6px 18px 18px 18px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);overflow-wrap:anywhere;animation:pop .5s cubic-bezier(.3,1.4,.5,1) both;transition:transform .25s}
+.note-card:nth-child(4n+1){transform:rotate(-1deg)}
+.note-card:nth-child(4n+2){transform:rotate(.8deg)}
+.note-card:nth-child(4n+3){transform:rotate(-.4deg)}
+.note-card:hover{transform:scale(1.03) rotate(0)}
+.note-card.r-student{background:#fff2f7;border-color:#f6cfe0}
+.note-card.r-parent{background:#f4eefc;border-color:#ddcdf3}
+.note-card.r-staff{background:#fdf6e6;border-color:#f1dfb4}
+.note-card.flash{animation:flash 1.6s ease}
+.note-card p{color:var(--plum);font-size:15.5px;line-height:1.9;margin:0}
+.note-card span{display:inline-block;margin-top:8px;font-size:11.5px;font-weight:700;color:var(--soft)}
+@keyframes pop{from{opacity:0;transform:scale(.85)}to{opacity:1}}
+@keyframes flash{0%,100%{box-shadow:var(--shadow)}30%{box-shadow:0 0 0 4px var(--rose)}}
+.bubble.auto q{animation:fadein .6s ease}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .head{display:grid;gap:6px;margin-bottom:22px}
 .head h2{font-size:clamp(26px,4.4vw,36px)}
 .step{justify-self:start;font-size:12.5px;font-weight:700;color:#fff;background:var(--violet);padding:2px 14px;border-radius:99px}
@@ -237,6 +259,15 @@ footer a{color:inherit}
       <div class="legend"><span><i style="background:#dc5b91"></i>طالبة</span><span><i style="background:#6f3fa8"></i>وليّ أمر</span><span><i style="background:#d99a2b"></i>معلمة</span></div>
     </div>
   </div>
+
+  <section class="wallsec" aria-labelledby="wallTitle">
+    <div class="wallhead">
+      <h2 id="wallTitle">حائط التسامح 💌</h2>
+      <span class="n" id="wallCount"></span>
+      <button class="btn small ghost" type="button" id="shuffle">🔀 ترتيب عشوائي</button>
+    </div>
+    <div class="wall" id="wall"></div>
+  </section>
 
 <section id="teacher">
   <div class="wrap">
@@ -534,10 +565,10 @@ function drawTree(svg, posts, interactive){
     const leaf = sv("g", { "class": "leaf", transform: "translate(" + s.x.toFixed(1) + "," + s.y.toFixed(1) + ") rotate(" + s.rot.toFixed(0) + ") scale(" + s.sc.toFixed(2) + ")" });
     leaf.appendChild(sv("path", { d: "M0,-19 C13,-11 13,9 0,19 C-13,9 -13,-11 0,-19Z", fill: LEAF[roleOf(p)], stroke: "#fff", "stroke-width": "1.2" }));
     if(interactive){
-      leaf.setAttribute("tabindex", "0"); leaf.setAttribute("role", "button"); leaf.setAttribute("aria-label", "ورقة: " + (p.text || "رسمة"));
+      leaf.setAttribute("tabindex", "0"); leaf.setAttribute("role", "button"); leaf.setAttribute("data-id", p.id); leaf.setAttribute("aria-label", "ورقة: " + (p.text || "رسمة"));
       if(!firstTree && !seenLeaves[p.id]) leaf.classList.add("new");
       if(selLeaf === p.id) leaf.classList.add("sel"); if(p._mine) leaf.classList.add("mine"); seenLeaves[p.id] = 1;
-      const pick = () => { selLeaf = p.id; showLeaf(p); $$(".leaf.sel", svg).forEach(l => l.classList.remove("sel")); leaf.classList.add("sel"); };
+      const pick = () => { userPick = Date.now(); selLeaf = p.id; showLeaf(p); $$(".leaf.sel", svg).forEach(l => l.classList.remove("sel")); leaf.classList.add("sel"); };
       leaf.addEventListener("click", pick);
       leaf.addEventListener("keydown", e => { if(e.key === "Enter" || e.key === " "){ e.preventDefault(); pick(); } });
     } else { const t = sv("title", {}); t.textContent = p.text || "رسمة"; leaf.appendChild(t); }
@@ -555,6 +586,7 @@ function renderTree(){
   $("#gMsg").textContent = n >= GOAL ? "اكتملت الشجرة! 🌸" : "بقي " + AR(GOAL - n) + " ورقة";
 }
 $("#randLeaf").addEventListener("click", () => {
+  userPick = Date.now();
   if(!approved.length) return; let p;
   do { p = approved[Math.floor(Math.random() * approved.length)]; } while(approved.length > 1 && p.id === selLeaf);
   selLeaf = p.id; showLeaf(p); renderTree(); const s = $("#treeSvg .leaf.sel"); if(s) FX.at(s, 10);
@@ -607,7 +639,36 @@ $("#loginForm").addEventListener("submit", function(e){
 });
 
 /* ---------- التشغيل ---------- */
-function renderAll(){ renderTree(); renderTeacher(); }
+/* ---------- حائط التسامح ---------- */
+let wallOrder = [], userPick = 0;
+function shuffleArr(a){ for(let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function renderWall(){
+  const box = $("#wall"), ids = new Set(approved.map(p => p.id)), byId = {};
+  approved.forEach(p => byId[p.id] = p);
+  if(!wallOrder.length && approved.length) wallOrder = shuffleArr(approved.map(p => p.id));
+  const fresh = approved.filter(p => !wallOrder.includes(p.id)).sort(byNew).map(p => p.id);
+  wallOrder = fresh.concat(wallOrder.filter(id => ids.has(id)));
+  box.textContent = "";
+  $("#wallCount").textContent = AR(wallOrder.length) + " رسالة";
+  if(!wallOrder.length){ box.appendChild(el("p", "hint", "الحائط ينتظر أول رسالة 🌱")); return; }
+  wallOrder.forEach(id => {
+    const p = byId[id], r = roleOf(p), c = el("div", "note-card r-" + r);
+    c.dataset.id = id; c.appendChild(el("p", null, p.text || "")); c.appendChild(el("span", null, ROLE[r]));
+    box.appendChild(c);
+  });
+}
+$("#shuffle").addEventListener("click", function(){ shuffleArr(wallOrder); renderWall(); FX.at(this, 14); });
+/* عرض ورقة عشوائية تلقائيًا كل ٦ ثوانٍ */
+setInterval(() => {
+  if(document.hidden || !approved.length || Date.now() - userPick < 15000) return;
+  const p = approved[Math.floor(Math.random() * approved.length)];
+  selLeaf = p.id; showLeaf(p);
+  const b = $(".bubble"); b.classList.remove("auto"); void b.offsetWidth; b.classList.add("auto");
+  $$("#treeSvg .leaf.sel").forEach(l => l.classList.remove("sel"));
+  const l = $('#treeSvg .leaf[data-id="' + p.id + '"]'); if(l) l.classList.add("sel");
+}, 6000);
+
+function renderAll(){ renderTree(); renderWall(); renderTeacher(); }
 function route(){ const t = location.hash === "#teacher"; document.body.classList.toggle("tmode", t); scrollTo(0, 0); }
 addEventListener("hashchange", route);
 store = LIVE ? liveStore() : demoStore();
