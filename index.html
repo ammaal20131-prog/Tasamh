@@ -40,6 +40,8 @@ button,input,textarea,select{font:inherit;color:inherit}
 .fab b{font-size:20px;line-height:1}
 .fab.on{background:var(--rose);box-shadow:0 14px 28px -12px var(--rose)}
 .fab.on b{animation:beat 1s infinite}
+.fab.ask{background:var(--rose);animation:askpulse 1.8s ease-in-out infinite}
+@keyframes askpulse{0%,100%{box-shadow:0 0 0 0 rgba(220,91,145,.45)}50%{box-shadow:0 0 0 14px rgba(220,91,145,0)}}
 
 /* الرأس */
 .top .wrap{display:flex;align-items:center;gap:12px;padding-top:14px;padding-bottom:6px}
@@ -208,7 +210,8 @@ footer a{color:inherit}
 
 @media (max-width:860px){
   .fab{width:46px;padding:0;bottom:92px}
-  .fab span{display:none!important}
+  .fab.on span{display:none!important}
+  .fab.ask{width:auto;padding:0 14px}
   .fruits{grid-template-columns:repeat(2,1fr);gap:12px}
   .fruit{height:180px}
   .vcard{padding:28px 20px 80px}
@@ -523,17 +526,27 @@ $("#leafForm").addEventListener("submit", function(e){
   let muted = false; try{ muted = sessionStorage.getItem("tsm-mute") === "1"; }catch(e){}
   a.volume = .7;
   const playing = () => !a.paused && !a.ended;
-  function paint(){ const on = playing(); fab.classList.toggle("on", on); fabT.hidden = !on; fabT.textContent = "إيقاف الصوت"; fab.setAttribute("aria-label", on ? "إيقاف الصوت" : "تشغيل الصوت"); }
-  ["play", "pause", "ended"].forEach(ev => a.addEventListener(ev, paint));
+  function paint(){
+    const on = playing(); fab.classList.toggle("on", on); fab.classList.toggle("ask", !on && !muted);
+    fabT.hidden = !on && muted; fabT.textContent = on ? "إيقاف الصوت" : "تشغيل الأنشودة";
+    fab.setAttribute("aria-label", on ? "إيقاف الصوت" : "تشغيل الأنشودة");
+  }
+  ["play", "playing", "pause", "ended"].forEach(ev => a.addEventListener(ev, paint));
   a.addEventListener("error", () => { fab.hidden = true; });
-  function tryPlay(){ if(muted || playing()) return; const p = a.play(); if(p && p.catch) p.catch(() => {}); }
-  /* المتصفحات لا تسمح بالصوت قبل أول لمسة، فيبدأ مع أول لمسة أو ضغطة في أي مكان */
-  ["pointerdown", "touchstart", "keydown", "click"].forEach(ev => addEventListener(ev, tryPlay, { capture: true, passive: true }));
-  fab.addEventListener("click", e => {
-    e.stopPropagation();
-    muted = playing(); try{ sessionStorage.setItem("tsm-mute", muted ? "1" : "0"); }catch(x){}
-    muted ? a.pause() : tryPlay();
-  }, true);
+  function tryPlay(){
+    if(muted || playing()) return;
+    try{ const p = a.play(); if(p && p.catch) p.catch(() => {}); }catch(e){}
+  }
+  /* المتصفحات (خاصة آيباد وآيفون) لا تسمح بالصوت قبل أول لمسة، فيبدأ مع أول لمسة في أي مكان */
+  const kick = e => { if(e.target && e.target.closest && e.target.closest("#fab")) return; tryPlay(); };
+  ["pointerdown", "pointerup", "touchstart", "touchend", "mousedown", "click", "keydown"].forEach(ev => document.addEventListener(ev, kick, { capture: true, passive: true }));
+  fab.addEventListener("click", () => {
+    if(playing()){ muted = true; a.pause(); }
+    else { muted = false; tryPlay(); }
+    try{ sessionStorage.setItem("tsm-mute", muted ? "1" : "0"); }catch(x){}
+    paint();
+  });
+  document.addEventListener("visibilitychange", () => { if(!document.hidden) tryPlay(); });
   tryPlay(); paint();
 })();
 
