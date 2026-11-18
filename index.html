@@ -46,7 +46,9 @@ button,input,textarea,select{font:inherit;color:inherit}
 .top{background:rgba(255,255,255,.85);backdrop-filter:blur(8px);border-bottom:4px solid transparent;border-image:linear-gradient(90deg,var(--violet),var(--gold),var(--rose)) 1}
 .top .wrap{display:flex;align-items:center;gap:16px;padding-top:12px;padding-bottom:12px}
 .top img{height:62px;width:auto;flex:none}
-.pill{flex:1;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px 0;background:linear-gradient(135deg,var(--plum),#4a2a6e);color:#e9def7;border-radius:99px;padding:9px 22px;font-size:13.5px;box-shadow:var(--shadow)}
+.who{font-size:13px;line-height:1.6;color:var(--soft)}
+.who b{display:block;color:var(--plum);font-size:16px}
+.pill{margin-inline-start:auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px 0;background:linear-gradient(135deg,var(--plum),#4a2a6e);color:#e9def7;border-radius:99px;padding:9px 22px;font-size:13.5px;box-shadow:var(--shadow)}
 .pill span{padding:0 14px;line-height:1.7}
 .pill span+span{border-inline-start:1px solid rgba(255,255,255,.25)}
 .pill b{color:#fff}
@@ -235,7 +237,8 @@ footer a{color:inherit}
   .bnav .lg{display:none}
   .stage{grid-template-columns:1fr}
   .tiles{grid-template-columns:repeat(2,1fr)}
-  .top .wrap{flex-direction:column;gap:8px}
+  .top .wrap{flex-wrap:wrap;justify-content:center;gap:8px 12px;text-align:center}
+  .pill{margin:0;width:100%}
   .top img{height:52px}
   .pill{border-radius:20px;font-size:12.5px;padding:8px 10px}
   .pill span{padding:0 9px}
@@ -254,10 +257,9 @@ footer a{color:inherit}
 <header class="top">
   <div class="wrap">
     <img id="hdLogo" src="logo.png" alt="وزارة التعليم">
+    <div class="who"><span id="hdDept">الإدارة العامة للتعليم بمنطقة عسير</span><b id="hdSchool">متوسطة خيبر الجنوب</b></div>
     <div class="pill">
-      <span class="sch" id="hdSchool">متوسطة خيبر الجنوب</span>
-      <span id="hdDept">الإدارة العامة للتعليم بمنطقة عسير</span>
-      <span>منفذة المبادرة: <b id="hdTeacher"></b></span>
+      <span>تنفيذ: <b id="hdTeacher"></b></span>
       <span>مديرة المدرسة: <b id="hdPrincipal"></b></span>
     </div>
   </div>
@@ -773,6 +775,17 @@ function showVerse(i, byUser){
 $("#vNext").addEventListener("click", () => showVerse(vi + 1, true));
 $("#vPrev").addEventListener("click", () => showVerse(vi - 1, true));
 showVerse(0); vTimer = setInterval(() => showVerse(vi + 1), 9000);
+
+/* ---------- روابط الأقسام: تنقل موثوق على كل الأجهزة ---------- */
+document.addEventListener("click", e => {
+  const a = e.target.closest && e.target.closest('a[href^="#"]');
+  if(!a) return;
+  const id = a.getAttribute("href").slice(1), n = id && id !== "teacher" && document.getElementById(id);
+  if(!n || document.body.classList.contains("tmode")) return;
+  e.preventDefault();
+  n.scrollIntoView({ behavior: "smooth", block: "start" });
+  try{ history.replaceState(null, "", "#" + id); }catch(x){}
+});
 
 /* ---------- شريط التنقل السفلي ---------- */
 (function(){
