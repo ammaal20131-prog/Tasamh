@@ -18,10 +18,10 @@ window.SITE = {
 };
 
 window.FIREBASE_CONFIG = {
-  apiKey: "",
-  authDomain: "",
-  projectId: "",
-  storageBucket: "",
-  messagingSenderId: "",
-  appId: ""
+  apiKey: "AIzaSyCDENsNxCuXXL4AscdxBSQVmqRfILaKjus",
+  authDomain: "tasamh-bc4cf.firebaseapp.com",
+  projectId: "tasamh-bc4cf",
+  storageBucket: "tasamh-bc4cf.firebasestorage.app",
+  messagingSenderId: "865163161196",
+  appId: "1:865163161196:web:9e36b68a0347c3004ab249"
 };

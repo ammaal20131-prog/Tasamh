@@ -242,9 +242,8 @@ footer a{color:inherit}
   <div class="wrap">
     <div class="head"><span class="step">خاص بالمعلمة</span><h2>لوحة المعلمة</h2><p>راجعي المشاركات قبل نشرها، واحذفي ما لا يناسب، وتابعي نمو الشجرة. <a href="#home">العودة للموقع</a></p></div>
     <form class="card form" id="loginForm" style="max-width:460px" hidden>
-      <label class="l" for="tEmail">البريد الإلكتروني للمعلمة</label><input type="email" id="tEmail" autocomplete="username" dir="ltr">
-      <label class="l" for="tPass">كلمة المرور</label><input type="password" id="tPass" autocomplete="current-password" dir="ltr">
-      <button class="btn violet" type="submit">دخول</button><div id="loginNote" hidden></div>
+      <p>تدخل المعلمة بحساب Google نفسه الذي أُنشئت به قاعدة البيانات.</p>
+      <button class="btn violet" type="submit">دخول المعلمة بحساب Google</button><div id="loginNote" hidden></div>
     </form>
     <div class="card form" id="demoLogin" style="max-width:460px" hidden>
       <p>أنتِ في وضع التجربة، لذلك تُفتح اللوحة بلا كلمة مرور. بعد ربط قاعدة البيانات سيُطلب بريد المعلمة وكلمة مرورها.</p>
@@ -400,14 +399,14 @@ function liveStore(){
             isTeacher = !!u;
             if(u){
               unsubAll = db.collection("posts").onSnapshot(qs => { allPosts = snap(qs); renderAll(); },
-                () => { isTeacher = false; auth.signOut(); note($("#loginNote"), "هذا الحساب ليس حساب المعلمة المسجَّل في قواعد قاعدة البيانات.", true); renderAll(); });
+                () => { isTeacher = false; auth.signOut(); note($("#loginNote"), "هذا الحساب ليس حساب المعلمة. ادخلي بحساب Google الذي أُنشئت به قاعدة البيانات.", true); renderAll(); });
             } else allPosts = [];
             renderAll();
           });
         });
     },
     add(p){ const o = Object.assign({}, p); delete o.id; return db.collection("posts").doc(p.id).set(o); },
-    login(email, pass){ return auth.signInWithEmailAndPassword(email, pass); },
+    login(){ return auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(e => { if(e && /popup/.test(e.code || "")) return auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider()); throw e; }); },
     logout(){ return auth.signOut(); },
     setStatus(id, st){ return db.collection("posts").doc(id).update({ status: st }); },
     remove(id){ return db.collection("posts").doc(id).delete(); }
@@ -599,8 +598,7 @@ $("#logout").addEventListener("click", () => store.logout());
 $("#demoEnter").addEventListener("click", () => store.login());
 $("#loginForm").addEventListener("submit", function(e){
   e.preventDefault(); const btn = $("button", this); btn.disabled = true; $("#loginNote").hidden = true;
-  store.login($("#tEmail").value.trim(), $("#tPass").value).then(() => $("#tPass").value = "")
-    .catch(() => note($("#loginNote"), "تعذّر الدخول. تأكدي من البريد وكلمة المرور.", true)).then(() => btn.disabled = false);
+  store.login().catch(() => note($("#loginNote"), "تعذّر الدخول. حاولي مرة أخرى.", true)).then(() => btn.disabled = false);
 });
 
 /* ---------- التشغيل ---------- */
