@@ -444,6 +444,8 @@ $("#leafForm").addEventListener("submit", function(e){
 
 /* ---------- بصمة الدخول والصوت (يعمل تلقائيًا) ---------- */
 (function(){
+  const behind = ["header.top", "main", "footer"].map(q => $(q)).filter(Boolean);
+  const lockBehind = on => behind.forEach(n => { if(on) n.setAttribute("inert", ""); else n.removeAttribute("inert"); });
   const sp = $("#splash"), h = $("#press"), intro = $("#introAudio"), music = $("#musicAudio"), fab = $("#fab"), fabT = $("#fabT");
   let t = null, noIntro = false, noMusic = false, waiting = false;
   const SS = { get(k){ try{ return sessionStorage.getItem(k); }catch(e){ return null; } }, set(k, v){ try{ sessionStorage.setItem(k, v); }catch(e){} } };
@@ -483,7 +485,7 @@ $("#leafForm").addEventListener("submit", function(e){
     SS.set("tsm-in", "1"); muted = false; SS.set("tsm-mute", "0");
     playIntro();
     $("#pressLbl").textContent = "أهلًا بكِ"; FX.at(h, 60);
-    setTimeout(() => sp.classList.add("out"), 650);
+    setTimeout(() => { sp.classList.add("out"); lockBehind(false); }, 650);
   }
   function stop(){ if(t){ clearTimeout(t); t = null; } h.classList.remove("go"); }
   h.addEventListener("pointerdown", e => {
@@ -495,6 +497,9 @@ $("#leafForm").addEventListener("submit", function(e){
   ["pointerup", "pointerleave", "pointercancel"].forEach(ev => h.addEventListener(ev, stop));
   h.addEventListener("contextmenu", e => e.preventDefault());
   h.addEventListener("keydown", e => { if((e.key === "Enter" || e.key === " ") && !h.classList.contains("done")){ e.preventDefault(); enter(); } });
+  const tmode = location.hash === "#teacher";
+  if(!SS.get("tsm-in") && !tmode) lockBehind(true);
+  addEventListener("hashchange", () => { if(location.hash === "#teacher") lockBehind(false); });
   if(SS.get("tsm-in")){
     sp.classList.add("out");
     if(!muted) SS.get("tsm-intro") ? playMusic() : playIntro();
