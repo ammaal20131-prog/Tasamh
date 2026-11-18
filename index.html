@@ -64,11 +64,16 @@ button,input,textarea,select{font:inherit;color:inherit}
 .hero p{max-width:620px;margin:16px auto 26px;color:var(--ink);font-size:18px;font-weight:300}
 .go{display:inline-block;text-decoration:none;font-weight:800;font-size:17px;color:#a3134f;background:linear-gradient(135deg,var(--blush),#fbf1dc);border:1.5px solid #f6c3d7;padding:12px 32px;border-radius:16px;box-shadow:0 8px 20px rgba(214,36,110,.14);transition:transform .2s}
 .go:hover{transform:translateY(-2px)}
-.friends{display:block;width:min(620px,96%);margin:30px auto 0}
-.friends .g{animation:sway2 3.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center bottom}
-.friends .g:nth-of-type(even){animation-delay:1.6s}
-.friends .h{animation:beat 1.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
-@keyframes sway2{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
+.hands{display:block;width:min(640px,95%);margin:30px auto 0}
+.hands .girl{animation:hop 3.2s ease-in-out infinite;transform-origin:center bottom;transform-box:fill-box}
+.hands .girl:nth-of-type(even){animation-delay:1.6s}
+@keyframes hop{50%{transform:translateY(-4px)}}
+.hands .hrt{animation:hbeat 1.6s ease-in-out infinite;transform-origin:center;transform-box:fill-box}
+@keyframes hbeat{50%{transform:scale(1.25)}}
+/* النافذة الأولى وحدها حتى تضغط «ابدئي الرحلة» */
+body.intro main>*:not(#home),body.intro footer{display:none!important}
+body.intro .hero{min-height:calc(100svh - 190px);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.reveal{animation:fadein .7s ease both}
 
 /* الشجرة */
 .stage{display:grid;grid-template-columns:1.35fr .65fr;gap:22px;align-items:start;padding-bottom:40px}
@@ -271,30 +276,51 @@ footer a{color:inherit}
     <h1><span class="a">بالتسامح نرتقي</span><br><span class="b">وبالمحبة نلتقي</span></h1>
     <p>رحلة جميلة لكِ يا صديقتي، تتعرّفين فيها على قيمة التسامح وثمراته، ثم تزرعين ورقتكِ في شجرة مدرستنا</p>
     <a class="go" href="#verses">ابدئي الرحلة</a>
-    <svg class="friends" viewBox="0 0 640 196" role="img" aria-label="طالبات يمسكن بأيدي بعضهن">
+    <svg class="hands" viewBox="0 0 640 190" role="img" aria-label="طالبات يمسكن بأيدي بعضهن">
       <defs>
         <g id="girl">
-          <path d="M-21 72 Q0 63 21 72 L37 162 Q0 173 -37 162 Z" fill="currentColor"/>
-          <path d="M-28 47 Q-28 13 0 13 Q28 13 28 47 Q28 73 0 77 Q-28 73 -28 47 Z" fill="currentColor" opacity=".8"/>
-          <ellipse cx="0" cy="46" rx="14.5" ry="16.5" fill="#f7d6bd"/>
-          <circle cx="-5.5" cy="44" r="2" fill="#3a2a46"/><circle cx="5.5" cy="44" r="2" fill="#3a2a46"/>
-          <path d="M-5 52 Q0 56.5 5 52" stroke="#c0566f" stroke-width="2" fill="none" stroke-linecap="round"/>
-          <circle cx="-9.5" cy="51" r="2.8" fill="#f4a3b8" opacity=".7"/><circle cx="9.5" cy="51" r="2.8" fill="#f4a3b8" opacity=".7"/>
-          <rect x="-16" y="162" width="10" height="16" rx="4" fill="#3a2a46"/><rect x="6" y="162" width="10" height="16" rx="4" fill="#3a2a46"/>
+          <!-- dress -->
+          <path d="M-20 70 Q0 62 20 70 L36 160 Q0 170 -36 160 Z" fill="currentColor"/>
+          <!-- hijab -->
+          <path d="M-27 46 Q-27 14 0 14 Q27 14 27 46 Q27 70 0 74 Q-27 70 -27 46 Z" fill="currentColor" opacity=".85"/>
+          <!-- face -->
+          <ellipse cx="0" cy="45" rx="14" ry="16" fill="#f6d3b8"/>
+          <circle cx="-5" cy="44" r="1.8" fill="#3b2f3f"/><circle cx="5" cy="44" r="1.8" fill="#3b2f3f"/>
+          <path d="M-5 51 Q0 55 5 51" stroke="#c0566f" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <circle cx="-9" cy="50" r="2.6" fill="#f2a7b6" opacity=".7"/><circle cx="9" cy="50" r="2.6" fill="#f2a7b6" opacity=".7"/>
+          <!-- feet -->
+          <rect x="-16" y="160" width="10" height="16" rx="4" fill="#3b2f3f"/><rect x="6" y="160" width="10" height="16" rx="4" fill="#3b2f3f"/>
         </g>
-        <path id="heart" d="M0 6 C-8 -2 -14 -8 -8 -13 C-4 -16 0 -13 0 -10 C0 -13 4 -16 8 -13 C14 -8 8 -2 0 6Z"/>
       </defs>
-      <g stroke="#f7d6bd" stroke-width="9" fill="none" stroke-linecap="round">
-        <path d="M88 90 Q128 134 168 90"/><path d="M208 90 Q248 134 288 90"/><path d="M328 90 Q368 134 408 90"/><path d="M448 90 Q488 134 528 90"/>
-        <path d="M48 90 Q28 72 24 46"/><path d="M588 90 Q608 72 612 46"/>
+      <!-- linked arms (between neighbours) -->
+      <g stroke="#f6d3b8" stroke-width="9" fill="none" stroke-linecap="round">
+        <path d="M88 88 Q128 132 168 88"/>
+        <path d="M208 88 Q248 132 288 88"/>
+        <path d="M328 88 Q368 132 408 88"/>
+        <path d="M448 88 Q488 132 528 88"/>
+        <!-- outer arms waving -->
+        <path d="M48 88 Q28 70 24 44"/>
+        <path d="M568 88 Q588 70 592 44"/>
       </g>
-      <g fill="#efc3a4"><circle cx="128" cy="112" r="9"/><circle cx="248" cy="112" r="9"/><circle cx="368" cy="112" r="9"/><circle cx="488" cy="112" r="9"/><circle cx="24" cy="42" r="8"/><circle cx="612" cy="42" r="8"/></g>
-      <use href="#girl" class="g" x="68" y="0" style="color:#f48fb1"/>
-      <use href="#girl" class="g" x="188" y="0" style="color:#b39ddb"/>
-      <use href="#girl" class="g" x="308" y="0" style="color:#ffc145"/>
-      <use href="#girl" class="g" x="428" y="0" style="color:#7ec8e3"/>
-      <use href="#girl" class="g" x="548" y="0" style="color:#ce93d8"/>
-      <g fill="#dc5b91"><use href="#heart" class="h" x="128" y="82"/><use href="#heart" class="h" x="248" y="82"/><use href="#heart" class="h" x="368" y="82"/><use href="#heart" class="h" x="488" y="82"/></g>
+      <!-- clasped hands -->
+      <g fill="#efc3a4">
+        <circle cx="128" cy="110" r="9"/><circle cx="248" cy="110" r="9"/>
+        <circle cx="368" cy="110" r="9"/><circle cx="488" cy="110" r="9"/>
+        <circle cx="24" cy="40" r="8"/><circle cx="592" cy="40" r="8"/>
+      </g>
+      <!-- girls -->
+      <use href="#girl" class="girl" x="68" y="0" style="color:#ff8fab"/>
+      <use href="#girl" class="girl" x="188" y="0" style="color:#2ec4b6"/>
+      <use href="#girl" class="girl" x="308" y="0" style="color:#ffc145"/>
+      <use href="#girl" class="girl" x="428" y="0" style="color:#6c9dff"/>
+      <use href="#girl" class="girl" x="548" y="0" style="color:#b388ff"/>
+      <!-- hearts above joined hands -->
+      <g fill="#ff6f91">
+        <path class="hrt" d="M128 80 c-6-8-16-2-10 6 l10 9 l10-9 c6-8-4-14-10-6z"/>
+        <path class="hrt" d="M248 80 c-6-8-16-2-10 6 l10 9 l10-9 c6-8-4-14-10-6z" style="animation-delay:.4s"/>
+        <path class="hrt" d="M368 80 c-6-8-16-2-10 6 l10 9 l10-9 c6-8-4-14-10-6z" style="animation-delay:.8s"/>
+        <path class="hrt" d="M488 80 c-6-8-16-2-10 6 l10 9 l10-9 c6-8-4-14-10-6z" style="animation-delay:1.2s"/>
+      </g>
     </svg>
   </section>
 
@@ -776,6 +802,17 @@ $("#vNext").addEventListener("click", () => showVerse(vi + 1, true));
 $("#vPrev").addEventListener("click", () => showVerse(vi - 1, true));
 showVerse(0); vTimer = setInterval(() => showVerse(vi + 1), 9000);
 
+/* ---------- النافذة الأولى ---------- */
+function startJourney(){
+  document.body.classList.remove("intro");
+  $$("main > *:not(#home):not(#teacher)").forEach(n => n.classList.add("reveal"));
+  try{ sessionStorage.setItem("tsm-started", "1"); }catch(x){}
+}
+(function(){
+  const h = location.hash.slice(1);
+  if(!h || h === "home") document.body.classList.add("intro");
+})();
+
 /* ---------- روابط الأقسام: تنقل موثوق على كل الأجهزة ---------- */
 document.addEventListener("click", e => {
   const a = e.target.closest && e.target.closest('a[href^="#"]');
@@ -783,6 +820,7 @@ document.addEventListener("click", e => {
   const id = a.getAttribute("href").slice(1), n = id && id !== "teacher" && document.getElementById(id);
   if(!n || document.body.classList.contains("tmode")) return;
   e.preventDefault();
+  if(document.body.classList.contains("intro") && id !== "home") startJourney();
   n.scrollIntoView({ behavior: "smooth", block: "start" });
   try{ history.replaceState(null, "", "#" + id); }catch(x){}
 });
@@ -794,8 +832,10 @@ document.addEventListener("click", e => {
   function spy(){
     if(Date.now() < lock) return;
     let cur = ids[0];
-    ids.forEach(id => { const n = document.getElementById(id); if(n && n.getBoundingClientRect().top <= innerHeight * .3) cur = id; });
-    if(innerHeight + scrollY >= document.documentElement.scrollHeight - 4) cur = ids[ids.length - 1];
+    if(!document.body.classList.contains("intro")){
+      ids.forEach(id => { const n = document.getElementById(id); if(n && n.offsetHeight && n.getBoundingClientRect().top <= innerHeight * .3) cur = id; });
+      if(innerHeight + scrollY >= document.documentElement.scrollHeight - 4) cur = ids[ids.length - 1];
+    }
     navs.forEach(a => a.classList.toggle("on", a.getAttribute("href") === "#" + cur));
   }
   navs.forEach(a => a.addEventListener("click", () => { navs.forEach(x => x.classList.toggle("on", x === a)); lock = Date.now() + 1200; }));
