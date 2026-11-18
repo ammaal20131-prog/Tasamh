@@ -225,7 +225,7 @@ footer a{color:inherit}
         <div class="ideas" data-for="leafText"><button type="button">التسامح هو </button><button type="button">أسامح لأنّ </button><button type="button">سأبدأ بالسلام على </button></div>
         <button class="btn wide" type="submit">ازرعي ورقتكِ 💜</button>
         <div id="leafNote" hidden></div>
-        <p class="hint">تظهر ورقتكِ لكِ فورًا بإطار منقّط، وللجميع بعد موافقة المعلمة.</p>
+        <p class="hint">تظهر ورقتكِ فورًا على الشجرة للجميع. بلا أسماء من فضلكِ.</p>
       </form>
 
       <div class="card bubble" aria-live="polite">
@@ -253,14 +253,14 @@ footer a{color:inherit}
       <div class="tiles">
         <div class="tile"><b id="sPeople">٠</b><span>مشارِكة ومشارِك</span></div>
         <div class="tile"><b id="sAll">٠</b><span>مجموع المشاركات</span></div>
-        <div class="tile"><b id="sPending">٠</b><span>بانتظار المراجعة</span></div>
+        <div class="tile"><b id="sPending">٠</b><span>مخفية</span></div>
         <div class="tile"><b id="sApproved">٠</b><span>منشورة</span></div>
       </div>
       <p class="hint" id="sRoles" style="margin-bottom:12px"></p>
       <div class="row">
-        <div class="tabs" id="modTabs" style="margin:0"><button type="button" data-f="pending" class="on">بانتظار المراجعة</button><button type="button" data-f="approved">منشورة</button><button type="button" data-f="all">الكل</button></div>
+        <div class="tabs" id="modTabs" style="margin:0"><button type="button" data-f="all" class="on">الكل</button><button type="button" data-f="approved">منشورة</button><button type="button" data-f="pending">مخفية</button></div>
         <select id="modRole" aria-label="تصفية حسب الصفة" style="width:auto;padding:6px 12px;border-radius:99px"><option value="all">كل الفئات</option><option value="student">الطالبات</option><option value="parent">أولياء الأمور</option><option value="staff">المعلمات والإدارة</option></select>
-        <button class="btn small" type="button" id="approveAll" style="margin-inline-start:auto">الموافقة على الكل</button>
+        <button class="btn small" type="button" id="approveAll" style="margin-inline-start:auto">إظهار الكل</button>
         <button class="btn small ghost" type="button" id="logout">خروج</button>
       </div>
       <p class="hint" style="margin-top:8px">عدد المشاركين يُحسب برمز عشوائي لكل جهاز، دون أي اسم أو بيانات شخصية.</p>
@@ -432,11 +432,11 @@ $("#leafForm").addEventListener("submit", function(e){
   const box = $("#leafNote"), btn = $("button[type=submit]", this), text = ta.value.replace(/\s+/g, " ").trim();
   if(text.length < 3){ note(box, "اكتبي عبارتكِ أولًا ثم أرسليها.", true); return; }
   if(Date.now() - lastSend < 4000){ note(box, "لحظة من فضلكِ، ثم أرسلي مرة أخرى.", true); return; }
-  const p = { type: "word", role: $("input[name=role]:checked").value, text, id: rid(), status: "pending", createdAt: Date.now(), pid: PID };
+  const p = { type: "word", role: $("input[name=role]:checked").value, text, id: rid(), status: "approved", createdAt: Date.now(), pid: PID };
   btn.disabled = true;
   store.add(p).then(() => {
     lastSend = Date.now(); rememberMine(p); ta.value = "";
-    note(box, "زُرعت ورقتكِ 💜 ستظهر للجميع بعد موافقة المعلمة.");
+    note(box, "زُرعت ورقتكِ على الشجرة 💜 شكرًا لقلبكِ الجميل!");
     FX.at(btn, 40); renderAll();
   }).catch(() => note(box, "لم تُرسل الورقة. تأكدي من اتصال الإنترنت وحاولي مرة أخرى.", true))
     .then(() => btn.disabled = false);
@@ -545,7 +545,7 @@ function drawTree(svg, posts, interactive){
   });
 }
 function showLeaf(p){
-  $("#bubbleKind").textContent = p._mine ? "ورقتكِ · بانتظار الموافقة" : ROLE[roleOf(p)];
+  $("#bubbleKind").textContent = p._mine ? "ورقتكِ 💜" : ROLE[roleOf(p)];
   $("#bubbleText").textContent = p.text || "رسمة عن التسامح 🎨";
 }
 function renderTree(){
@@ -561,7 +561,7 @@ $("#randLeaf").addEventListener("click", () => {
 });
 
 /* ---------- لوحة المعلمة ---------- */
-let modF = "pending", modR = "all";
+let modF = "all", modR = "all";
 function renderTeacher(){
   $("#loginForm").hidden = !LIVE || isTeacher; $("#demoLogin").hidden = LIVE || isTeacher; $("#panel").hidden = !isTeacher;
   if(!isTeacher) return;
@@ -572,16 +572,16 @@ function renderTeacher(){
   $("#approveAll").hidden = !pend;
   const list = allPosts.filter(p => (modF === "all" || (modF === "approved") === (p.status === "approved")) && (modR === "all" || roleOf(p) === modR)).sort(byNew);
   const box = $("#mod"); box.textContent = "";
-  if(!list.length) box.appendChild(el("div", "empty", modF === "pending" ? "لا توجد مشاركات بانتظار المراجعة 🎉" : "لا توجد مشاركات هنا بعد."));
+  if(!list.length) box.appendChild(el("div", "empty", modF === "pending" ? "لا توجد مشاركات مخفية." : "لا توجد مشاركات هنا بعد."));
   list.forEach(p => {
     const ok = p.status === "approved", r = roleOf(p), it = el("div", "item" + (ok ? " approved" : "")), meta = el("div", "meta");
     meta.appendChild(el("span", "chip " + (r === "student" ? "" : r), ROLE[r])); meta.appendChild(el("span", "chip plain", typeLabel(p)));
-    meta.appendChild(el("span", "chip " + (ok ? "approved" : "pending"), ok ? "منشورة" : "بانتظار المراجعة"));
+    meta.appendChild(el("span", "chip " + (ok ? "approved" : "pending"), ok ? "منشورة" : "مخفية"));
     meta.appendChild(el("span", null, new Date(p.createdAt || 0).toLocaleString("ar", { hour: "2-digit", minute: "2-digit", day: "numeric", month: "short" })));
     it.appendChild(meta);
     if(okImg(p.img)){ const im = el("img"); im.src = p.img; im.alt = "رسمة"; it.appendChild(im); }
     if(p.text) it.appendChild(el("div", "txt", p.text));
-    const acts = el("div", "acts"), a = el("button", "btn small" + (ok ? " ghost" : ""), ok ? "إخفاء من الموقع" : "موافقة ونشر"); a.type = "button";
+    const acts = el("div", "acts"), a = el("button", "btn small" + (ok ? " ghost" : ""), ok ? "إخفاء من الشجرة" : "إظهار على الشجرة"); a.type = "button";
     a.addEventListener("click", () => { a.disabled = true; store.setStatus(p.id, ok ? "pending" : "approved").catch(() => a.disabled = false); });
     const del = el("button", "btn small danger", "حذف"); del.type = "button";
     del.addEventListener("click", () => {
