@@ -3,88 +3,46 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>التسامح يجمعنا</title>
-<meta name="description" content="مبادرة مدرسية تفاعلية بمناسبة اليوم العالمي للتسامح، تشارك فيها الطالبات وأولياء الأمور والمعلمات">
+<title>شجرة التسامح</title>
+<meta name="description" content="شجرة التسامح: مبادرة متوسطة خيبر الجنوب بمناسبة اليوم العالمي للتسامح">
 <meta name="theme-color" content="#6f3fa8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
 <style>
-/* الفكرة: صفحة واحدة تنساب من البصمة إلى الشجرة؛ بياض واسع، بنفسجي عميق للعناوين، وردي للأفعال فقط */
 :root{
   color-scheme:light;
   --paper:#fdfbff; --mist:#f5eefb; --lilac:#e2d3f3; --line:#eadff3;
   --violet:#6f3fa8; --plum:#2f1a47; --ink:#4b3a5e; --soft:#85749a;
   --rose:#dc5b91; --blush:#fce6ef; --gold:#d99a2b;
   --ok:#2b8a66; --ok-bg:#e3f5ec; --warn:#ad5320; --warn-bg:#fdeede;
-  --display:"Alexandria","Tajawal","Segoe UI",Tahoma,sans-serif;
   --body:"Alexandria","Tajawal","Segoe UI",Tahoma,sans-serif;
-  --r:20px; --shadow:0 18px 40px -26px rgba(47,26,71,.5); --wrap:1100px;
+  --r:20px; --shadow:0 18px 40px -26px rgba(47,26,71,.5);
 }
+/* الفكرة: صفحة واحدة، الشجرة في المنتصف وبجانبها صندوق صغير لإضافة ورقة */
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:76px}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.9;overflow-x:hidden}
+body{margin:0;background:radial-gradient(900px 500px at 100% 0,#f3e4fb 0,transparent 70%),radial-gradient(700px 420px at 0 100%,#fdeaf2 0,transparent 70%),var(--paper);background-attachment:fixed;color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.9;overflow-x:hidden;min-height:100vh}
 h1,h2,h3,p{margin:0}
-h2,h3{color:var(--plum);font-weight:800;line-height:1.5;text-wrap:balance}
+h2,h3{color:var(--plum);font-weight:800;line-height:1.5}
 button,input,textarea,select{font:inherit;color:inherit}
-img{max-width:100%}
 :focus-visible{outline:3px solid var(--rose);outline-offset:3px;border-radius:10px}
 [hidden]{display:none!important}
-.wrap{max-width:var(--wrap);margin:0 auto;padding:0 20px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
 #fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:90}
 .banner{background:var(--warn-bg);color:var(--warn);font-size:13px;padding:7px 16px;text-align:center;line-height:1.7}
 
-/* الشريط العلوي */
-.top{position:sticky;top:0;z-index:40;background:rgba(253,251,255,.88);backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--line)}
-.top .wrap{display:flex;align-items:center;gap:14px;height:62px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--plum);font-size:15px;font-weight:800;white-space:nowrap;line-height:1.35}
-.brand img{height:38px;width:auto;flex:none}
-.brand small{display:block;font-size:11.5px;font-weight:500;color:var(--soft)}
-.links{display:flex;gap:2px;margin-inline-start:auto}
-.links a{text-decoration:none;color:var(--ink);font-size:14px;font-weight:500;padding:6px 13px;border-radius:99px;transition:background .2s,color .2s}
-.links a:hover{background:var(--mist)}
-.links a.on{background:var(--violet);color:#fff}
-.stars{font-size:13px;font-weight:700;color:var(--rose);background:var(--blush);padding:3px 12px;border-radius:99px;white-space:nowrap;font-variant-numeric:tabular-nums}
-
-/* شريط الجوال السفلي */
-.tabbar{display:none;position:fixed;bottom:0;inset-inline:0;z-index:40;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom))}
-.tabbar a{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;text-decoration:none;color:var(--soft);font-size:11px;font-weight:500;padding:4px 2px;border-radius:12px}
-.tabbar svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.tabbar a.on{color:var(--violet);background:var(--mist)}
-
-/* الأزرار */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;cursor:pointer;text-decoration:none;background:var(--rose);color:#fff;font-weight:700;font-size:16px;padding:13px 28px;border-radius:99px;box-shadow:0 12px 24px -14px var(--rose);transition:transform .2s,box-shadow .2s,opacity .2s}
-.btn:hover{transform:translateY(-2px)}
-.btn:active{transform:none}
-.btn[disabled]{opacity:.55;cursor:not-allowed;transform:none}
-.btn.violet{background:var(--violet);box-shadow:0 12px 24px -14px var(--violet)}
-.btn.ghost{background:#fff;color:var(--violet);border:1.5px solid var(--lilac);box-shadow:none}
-.btn.small{font-size:13px;padding:6px 15px;font-weight:500}
-.btn.danger{background:#fff;color:#b3324f;border:1.5px solid #f1c3cf;box-shadow:none}
-.btn.danger.sure{background:#b3324f;color:#fff;border-color:#b3324f}
-.btn.wide{width:100%}
-
-/* الواجهة */
-.hero{position:relative;padding:44px 0 56px;background:radial-gradient(900px 420px at 85% -10%,#f3e4fb 0,transparent 70%),radial-gradient(700px 380px at 0% 30%,#fdeaf2 0,transparent 70%)}
-.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--violet);background:#fff;border:1px solid var(--line);padding:4px 14px;border-radius:99px}
-.eyebrow i{width:7px;height:7px;border-radius:50%;background:var(--rose)}
-.hero h1,.splash h1{font-weight:900;line-height:1.25;background:linear-gradient(90deg,var(--violet),var(--rose));-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
-.hero h1{font-size:clamp(44px,8.6vw,92px);margin:14px 0 6px}
-.hero .say{font-size:clamp(19px,2.8vw,26px);font-weight:500;color:var(--plum)}
-.hero .lead{max-width:33em;font-weight:300;margin:14px 0 26px}
-.start{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.splash{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:24px;text-align:center;overflow:auto;
-  background:radial-gradient(700px 500px at 100% 100%,#f6ecfb 0,transparent 70%),radial-gradient(600px 420px at 0 0,#fdeef4 0,transparent 70%),#fff;transition:opacity .7s,visibility .7s}
+/* شاشة الدخول */
+.splash{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:24px;text-align:center;overflow:auto;background:radial-gradient(700px 500px at 100% 100%,#f6ecfb 0,transparent 70%),radial-gradient(600px 420px at 0 0,#fdeef4 0,transparent 70%),#fff;transition:opacity .7s,visibility .7s}
 .splash.out{opacity:0;visibility:hidden;pointer-events:none}
 body.tmode .splash{display:none}
 .splash .in{display:grid;justify-items:center;gap:6px;max-width:520px}
 .splash .logo{height:150px;width:auto;margin-bottom:4px}
 .splash .min{font-size:22px;font-weight:700;color:var(--violet)}
 .splash .dept{font-size:15px;font-weight:500;color:var(--soft)}
-.splash h2{font-size:22px;font-weight:800;color:var(--plum)}
+.splash h2{font-size:22px}
+.grad{font-weight:900;line-height:1.25;background:linear-gradient(90deg,var(--violet),var(--rose));-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
 .splash h1{font-size:clamp(46px,12vw,84px);margin:6px 0 0}
-.splash p{font-weight:300;font-size:17px;color:var(--ink)}
+.splash p{font-weight:300;font-size:17px}
 .press{position:relative;width:170px;height:170px;margin-top:26px;border:0;border-radius:50%;cursor:pointer;background:#fff;box-shadow:0 24px 50px -22px rgba(111,63,168,.55);touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;display:grid;place-items:center}
 .press svg.ring{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
 .press .ring circle{fill:none;stroke-width:6}
@@ -98,142 +56,28 @@ body.tmode .splash{display:none}
 @keyframes breath{0%,100%{box-shadow:0 24px 50px -22px rgba(111,63,168,.55),0 0 0 0 rgba(220,91,145,.25)}50%{box-shadow:0 24px 50px -22px rgba(111,63,168,.55),0 0 0 16px rgba(220,91,145,0)}}
 @keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.13)}}
 .splash .lbl{font-weight:700;font-size:15px;color:var(--soft);margin-top:10px}
-.splash .skip{background:none;border:0;color:var(--soft);font-size:13px;text-decoration:underline;cursor:pointer;margin-top:6px}
+
+/* زر الصوت */
 .fab{position:fixed;z-index:45;bottom:18px;inset-inline-start:18px;display:flex;align-items:center;gap:8px;border:0;cursor:pointer;background:var(--violet);color:#fff;font-weight:700;font-size:13px;height:46px;min-width:46px;justify-content:center;padding:0 14px;border-radius:99px;box-shadow:0 14px 28px -12px var(--violet)}
 .fab b{font-size:20px;line-height:1}
 .fab.on{background:var(--rose);box-shadow:0 14px 28px -12px var(--rose)}
 .fab.on b{animation:beat 1s infinite}
-.credits{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:22px;max-width:34em}
-.credits div{background:var(--mist);border-radius:16px;padding:12px 16px;line-height:1.6}
-.credits small{display:block;font-size:12.5px;color:var(--soft)}
-.credits b{color:var(--plum)}
 
-.meter{background:#fff;border:1px solid var(--line);border-radius:28px;padding:26px;box-shadow:var(--shadow);display:grid;gap:18px;justify-items:center;text-align:center}
-.dial{position:relative;width:210px;height:210px}
-.dial svg{width:100%;height:100%;transform:rotate(-90deg)}
-.dial circle{fill:none;stroke-width:12}
-.dial .bg{stroke:var(--mist)}
-.dial .fg{stroke:url(#dg);stroke-linecap:round;stroke-dasharray:565;stroke-dashoffset:565;transition:stroke-dashoffset 1s cubic-bezier(.3,1,.4,1)}
-.dial .num{position:absolute;inset:0;display:grid;place-content:center;line-height:1.3}
-.dial .num b{font-size:50px;font-weight:800;color:var(--violet);font-variant-numeric:tabular-nums}
-.dial .num span{font-size:13px;color:var(--soft)}
-.meter h3{font-size:17px}
-.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%}
-.trio div{background:var(--mist);border-radius:14px;padding:8px 4px;font-size:12px;color:var(--soft);line-height:1.5}
-.trio b{display:block;font-size:20px;color:var(--plum);font-variant-numeric:tabular-nums}
-.quick{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-.quick a{font-size:13px;text-decoration:none;color:var(--violet);border:1px solid var(--lilac);border-radius:99px;padding:3px 13px;background:#fff;font-weight:500}
-.quick a:hover{background:var(--mist)}
-
-/* الأقسام */
-section.band{padding:60px 0}
-section.band.tint{background:var(--mist)}
-.head{display:grid;gap:6px;margin-bottom:28px;max-width:44em}
-.step{justify-self:start;font-size:12.5px;font-weight:700;color:#fff;background:var(--violet);padding:2px 14px;border-radius:99px}
-.step.rose{background:var(--rose)}
-.head h2{font-size:clamp(26px,4.4vw,38px)}
-.head p{font-weight:300}
-.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:var(--shadow)}
-.two{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:start}
-
-/* النماذج */
-.form{display:grid;gap:14px}
-.form label.l{font-weight:700;color:var(--plum);font-size:15px}
-textarea,input[type=text],input[type=email],input[type=password],select{width:100%;border:1.5px solid var(--lilac);border-radius:14px;background:var(--paper);padding:12px 14px;resize:vertical;transition:border-color .2s,box-shadow .2s}
-textarea:focus,input:focus,select:focus{outline:0;border-color:var(--violet);box-shadow:0 0 0 4px var(--mist)}
-.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.count{font-size:12px;color:var(--soft);margin-inline-start:auto;font-variant-numeric:tabular-nums}
-.hint{font-size:13px;color:var(--soft);font-weight:300}
-.note{font-size:14px;padding:10px 14px;border-radius:12px;background:var(--ok-bg);color:var(--ok);animation:rise .4s ease both}
-.note.err{background:var(--warn-bg);color:var(--warn)}
-@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.seg{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.seg.three{grid-template-columns:repeat(3,1fr)}
-.seg.two-c{grid-template-columns:repeat(2,1fr)}
-.seg label{cursor:pointer;position:relative}
-.seg input{position:absolute;opacity:0;inset:0}
-.seg span{display:grid;justify-items:center;gap:2px;text-align:center;padding:10px 6px;border-radius:16px;border:1.5px solid var(--lilac);background:#fff;font-weight:500;font-size:14px;line-height:1.5;transition:all .2s}
-.seg span svg{width:24px;height:24px;fill:none;stroke:var(--violet);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;transition:stroke .2s}
-.seg input:checked+span{background:var(--violet);border-color:var(--violet);color:#fff;box-shadow:0 12px 22px -14px var(--violet)}
-.seg input:checked+span svg{stroke:#fff}
-.seg input:focus-visible+span{outline:3px solid var(--rose);outline-offset:3px}
-.ideas{display:flex;gap:6px;flex-wrap:wrap}
-.ideas button{border:1px solid var(--lilac);background:var(--mist);border-radius:99px;padding:3px 13px;font-size:13px;cursor:pointer;transition:transform .15s,background .2s}
-.ideas button:hover{background:var(--blush);transform:translateY(-2px)}
-.ready{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.ready button{text-align:start;border:1.5px solid var(--lilac);background:var(--paper);border-radius:16px;padding:12px 14px;cursor:pointer;line-height:1.8;font-weight:500;transition:all .2s}
-.ready button:hover{border-color:var(--violet)}
-.ready button.on{background:linear-gradient(135deg,var(--violet),var(--rose));color:#fff;border-color:transparent;box-shadow:var(--shadow)}
-.pad{display:grid;gap:10px;justify-items:center}
-.pad canvas{width:100%;max-width:340px;aspect-ratio:1;border-radius:18px;border:1.5px solid var(--lilac);background:#fff;touch-action:none;cursor:crosshair}
-.swatches{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;align-items:center}
-.swatches button{width:30px;height:30px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 1.5px var(--lilac);cursor:pointer}
-.swatches button.on{box-shadow:0 0 0 3px var(--plum)}
-.aside{display:grid;gap:14px}
-.aside .card{box-shadow:none;background:linear-gradient(160deg,#fff,var(--mist))}
-.aside h3{font-size:17px;margin-bottom:6px}
-.aside ul{margin:0;padding-inline-start:20px;font-size:14.5px;font-weight:300}
-.aside li::marker{color:var(--rose)}
-
-/* البطاقات القلّابة والمواقف */
-.flips{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px}
-.flip{perspective:900px;background:none;border:0;padding:0;cursor:pointer;height:140px}
-.flip .in{position:relative;display:block;width:100%;height:100%;transition:transform .6s cubic-bezier(.4,1.3,.5,1);transform-style:preserve-3d}
-.flip.on .in{transform:rotateY(180deg)}
-.flip .f,.flip .b{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:14px;border-radius:var(--r);backface-visibility:hidden;-webkit-backface-visibility:hidden;font-weight:500;line-height:1.8}
-.flip .f{background:#fff;border:1.5px dashed #c9b5dd;color:var(--soft)}
-.flip small{display:block;font-size:24px;line-height:1.3}
-.flip .b{background:linear-gradient(135deg,var(--violet),var(--rose));color:#fff;transform:rotateY(180deg);box-shadow:var(--shadow)}
-.quiz{max-width:720px}
-.dots{display:flex;gap:6px;margin-bottom:14px}
-.dots i{height:6px;flex:1;border-radius:9px;background:var(--lilac)}
-.dots i.on{background:var(--rose)}
-.q-emoji{font-size:42px;line-height:1.2}
-.q-text{font-size:19px;font-weight:700;color:var(--plum);margin:6px 0 16px;line-height:1.8}
-.opts{display:grid;gap:10px}
-.opt{text-align:start;background:var(--paper);border:1.5px solid var(--lilac);border-radius:14px;padding:12px 16px;cursor:pointer;transition:transform .15s,border-color .2s,background .2s;line-height:1.8}
-.opt:hover:not([disabled]){border-color:var(--violet);transform:translateX(-4px)}
-.opt.right{background:var(--ok-bg);border-color:var(--ok);color:#1d5c45;font-weight:500}
-.opt.wrong{background:var(--warn-bg);border-color:#e7b48e;color:var(--warn);animation:shake .35s}
-@keyframes shake{25%{transform:translateX(5px)}75%{transform:translateX(-5px)}}
-.fb{margin-top:14px;padding:14px 16px;border-radius:14px;line-height:1.9;animation:rise .35s ease both}
-.fb.good{background:var(--ok-bg);color:#1d5c45}
-.fb.try{background:var(--warn-bg);color:#8a4317}
-.fb b{display:block}
-
-
-/* الحائط */
-.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
-.tabs button{border:1.5px solid var(--lilac);background:#fff;border-radius:99px;padding:5px 16px;cursor:pointer;font-size:14px;font-weight:500;display:flex;gap:6px;align-items:center}
-.tabs button.on{background:var(--violet);color:#fff;border-color:var(--violet)}
-.tabs button em{font-style:normal;font-size:12px;opacity:.75;font-variant-numeric:tabular-nums}
-.live{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ok);font-weight:500}
-.live i{width:8px;height:8px;border-radius:50%;background:var(--ok);animation:pulse 1.6s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(43,138,102,.5)}100%{box-shadow:0 0 0 9px rgba(43,138,102,0)}}
-.wall{columns:3 250px;column-gap:16px}
-.post{break-inside:avoid;margin-bottom:16px;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 12px;position:relative;overflow-wrap:anywhere;animation:pop .45s cubic-bezier(.3,1.4,.5,1) both;border-top:4px solid var(--rose);cursor:pointer}
-.post.r-parent{border-top-color:var(--violet)}
-.post.r-staff{border-top-color:var(--gold)}
-.post.mine{border-style:dashed;border-top-style:solid}
-.post .tx{font-size:15.5px;line-height:1.95;color:var(--plum)}
-.post.t-card .tx,.post.t-word .tx{font-weight:500}
-.post img{display:block;width:100%;border-radius:12px;margin-bottom:8px;border:1px solid var(--line)}
-.post .ft{display:flex;gap:6px;align-items:center;margin-top:10px;font-size:12px;color:var(--soft);flex-wrap:wrap}
-.post .heart{margin-inline-start:auto;font-size:15px;filter:grayscale(1);opacity:.4;transition:transform .25s,opacity .25s,filter .25s}
-.post.loved .heart{filter:none;opacity:1;transform:scale(1.3)}
-@keyframes pop{from{opacity:0;transform:scale(.85)}to{opacity:1}}
-.chip{display:inline-block;font-size:12px;font-weight:700;padding:1px 11px;border-radius:99px;background:var(--blush);color:var(--rose)}
-.chip.parent{background:var(--mist);color:var(--violet)}
-.chip.staff{background:#fbf0d9;color:#9a6a12}
-.chip.plain{background:var(--mist);color:var(--soft);font-weight:500}
-.chip.pending{background:var(--warn-bg);color:var(--warn)}
-.chip.approved{background:var(--ok-bg);color:var(--ok)}
-.empty{border:2px dashed var(--lilac);border-radius:var(--r);padding:28px;text-align:center;color:var(--soft);font-weight:300;column-span:all}
+/* الرأس */
+.top .wrap{display:flex;align-items:center;gap:12px;padding-top:14px;padding-bottom:6px}
+.top img{height:46px;width:auto}
+.top .who{font-size:13px;line-height:1.6;color:var(--soft)}
+.top .who b{display:block;color:var(--plum);font-size:15px}
+.title{text-align:center;padding:10px 0 18px}
+.title h1{font-size:clamp(38px,7vw,64px)}
+.title p{font-size:clamp(16px,2.4vw,20px);font-weight:500;color:var(--plum)}
 
 /* الشجرة */
-.tree-wrap{display:grid;grid-template-columns:1.3fr .7fr;gap:22px;align-items:start}
-.tree-box{background:linear-gradient(#fff,var(--mist));border:1px solid var(--line);border-radius:30px;padding:10px;position:relative}
+.stage{display:grid;grid-template-columns:1.35fr .65fr;gap:22px;align-items:start;padding-bottom:40px}
+.tree-box{background:linear-gradient(#fff,var(--mist));border:1px solid var(--line);border-radius:30px;padding:10px;position:relative;box-shadow:var(--shadow)}
 .tree-box svg{width:100%;height:auto;display:block}
+.count{position:absolute;top:14px;inset-inline-start:16px;background:#fff;border:1px solid var(--line);border-radius:99px;padding:2px 14px;font-size:13px;font-weight:500}
+.count b{color:var(--rose);font-size:18px;font-variant-numeric:tabular-nums}
 .leaf{cursor:pointer}
 .leaf path{transition:transform .2s;transform-box:fill-box;transform-origin:center}
 .leaf:hover path,.leaf:focus path,.leaf.sel path{transform:scale(1.5)}
@@ -244,37 +88,64 @@ textarea:focus,input:focus,select:focus{outline:0;border-color:var(--violet);box
 @keyframes grow{from{transform:scale(0) rotate(-40deg);opacity:0}to{transform:none;opacity:1}}
 .sway{animation:sway 9s ease-in-out infinite;transform-origin:400px 740px}
 @keyframes sway{0%,100%{transform:rotate(-.5deg)}50%{transform:rotate(.5deg)}}
-.goal{display:grid;gap:6px}
-.bar{height:12px;border-radius:99px;background:var(--mist);overflow:hidden}
+.bar{height:10px;border-radius:99px;background:#fff;border:1px solid var(--line);overflow:hidden;margin:10px 6px 4px}
 .bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--rose),var(--violet));transition:width 1s cubic-bezier(.3,1,.4,1)}
-.goal .nums{display:flex;justify-content:space-between;font-size:13px;color:var(--soft)}
-.goal .nums b{color:var(--violet);font-size:20px;font-variant-numeric:tabular-nums}
-.side{display:grid;gap:16px}
-.bubble q{quotes:"«" "»";display:block;font-size:17px;line-height:1.95;color:var(--plum);overflow-wrap:anywhere;margin-top:8px;min-height:3.9em}
-.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--soft)}
-.legend i{display:inline-block;width:11px;height:11px;border-radius:0 60% 0 60%;margin-inline-end:5px;vertical-align:middle}
+.goal{display:flex;justify-content:space-between;font-size:12.5px;color:var(--soft);padding:0 8px 4px}
 
-/* الختام */
-.end{display:grid;grid-template-columns:.85fr 1.15fr;gap:28px;align-items:center}
-.medal{background:#fff;border:1px solid var(--line);border-radius:28px;padding:14px;box-shadow:var(--shadow);text-align:center}
-.medal img,.medal .lock{width:100%;aspect-ratio:1;border-radius:18px;display:block}
-.medal .lock{display:grid;place-content:center;gap:8px;background:repeating-linear-gradient(45deg,var(--mist),var(--mist) 12px,#fff 12px,#fff 24px);color:var(--soft);padding:24px;font-weight:500}
-.medal .lock b{font-size:44px}
-.quote{font-size:clamp(19px,2.8vw,25px);font-weight:500;color:var(--violet);line-height:2;border-inline-start:4px solid var(--rose);padding-inline-start:18px;margin-bottom:8px}
-.quote small{display:block;font-size:13px;font-weight:400;color:var(--soft)}
-.checks{display:grid;gap:8px;margin:18px 0}
-.checks div{display:flex;gap:10px;align-items:center;font-weight:500}
-.checks i{width:24px;height:24px;border-radius:50%;border:2px solid var(--lilac);display:grid;place-items:center;font-style:normal;font-size:13px;color:transparent;flex:none}
-.checks .ok i{background:var(--ok);border-color:var(--ok);color:#fff}
+/* الصندوق الجانبي */
+.side{display:grid;gap:14px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow)}
+.form{display:grid;gap:12px}
+.form h2{font-size:20px}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.seg label{cursor:pointer;position:relative}
+.seg input{position:absolute;opacity:0;inset:0}
+.seg span{display:block;text-align:center;padding:7px 4px;border-radius:12px;border:1.5px solid var(--lilac);background:#fff;font-weight:500;font-size:13.5px;transition:all .2s}
+.seg input:checked+span{background:var(--violet);border-color:var(--violet);color:#fff}
+.seg input:focus-visible+span{outline:3px solid var(--rose);outline-offset:3px}
+textarea,input[type=email],input[type=password],select{width:100%;border:1.5px solid var(--lilac);border-radius:14px;background:var(--paper);padding:11px 14px;resize:vertical;transition:border-color .2s,box-shadow .2s}
+textarea:focus,input:focus,select:focus{outline:0;border-color:var(--violet);box-shadow:0 0 0 4px var(--mist)}
+.ideas{display:flex;gap:6px;flex-wrap:wrap}
+.ideas button{border:1px solid var(--lilac);background:var(--mist);border-radius:99px;padding:2px 12px;font-size:13px;cursor:pointer}
+.ideas button:hover{background:var(--blush)}
+.hint{font-size:12.5px;color:var(--soft);font-weight:300;line-height:1.7}
+.note{font-size:14px;padding:10px 14px;border-radius:12px;background:var(--ok-bg);color:var(--ok)}
+.note.err{background:var(--warn-bg);color:var(--warn)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;cursor:pointer;text-decoration:none;background:var(--rose);color:#fff;font-weight:700;font-size:16px;padding:12px 26px;border-radius:99px;box-shadow:0 12px 24px -14px var(--rose);transition:transform .2s,opacity .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn[disabled]{opacity:.55;cursor:not-allowed;transform:none}
+.btn.violet{background:var(--violet);box-shadow:0 12px 24px -14px var(--violet)}
+.btn.ghost{background:#fff;color:var(--violet);border:1.5px solid var(--lilac);box-shadow:none}
+.btn.small{font-size:13px;padding:6px 15px;font-weight:500}
+.btn.danger{background:#fff;color:#b3324f;border:1.5px solid #f1c3cf;box-shadow:none}
+.btn.danger.sure{background:#b3324f;color:#fff;border-color:#b3324f}
+.btn.wide{width:100%}
+.bubble q{quotes:"«" "»";display:block;font-size:17px;line-height:1.95;color:var(--plum);overflow-wrap:anywhere;margin:8px 0 10px;min-height:3.9em}
+.chip{display:inline-block;font-size:12px;font-weight:700;padding:1px 11px;border-radius:99px;background:var(--blush);color:var(--rose)}
+.chip.parent{background:var(--mist);color:var(--violet)}
+.chip.staff{background:#fbf0d9;color:#9a6a12}
+.chip.plain{background:var(--mist);color:var(--soft);font-weight:500}
+.chip.pending{background:var(--warn-bg);color:var(--warn)}
+.chip.approved{background:var(--ok-bg);color:var(--ok)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;font-size:12.5px;color:var(--soft)}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:0 60% 0 60%;margin-inline-end:5px;vertical-align:middle}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 
 /* لوحة المعلمة */
-#teacher{display:none;padding:36px 0 60px}
+#teacher{display:none;padding:28px 0 60px}
 body.tmode #teacher{display:block}
-body.tmode main>section:not(#teacher),body.tmode .tabbar,body.tmode .links{display:none}
+body.tmode main>.stage,body.tmode main>.title{display:none}
+.head{display:grid;gap:6px;margin-bottom:22px}
+.head h2{font-size:clamp(26px,4.4vw,36px)}
+.step{justify-self:start;font-size:12.5px;font-weight:700;color:#fff;background:var(--violet);padding:2px 14px;border-radius:99px}
+.form label.l{font-weight:700;color:var(--plum);font-size:15px}
 .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
 .tile{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:14px 16px}
 .tile b{display:block;font-size:32px;line-height:1.25;color:var(--violet);font-variant-numeric:tabular-nums;font-weight:800}
 .tile span{font-size:13px;color:var(--soft)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tabs button{border:1.5px solid var(--lilac);background:#fff;border-radius:99px;padding:5px 16px;cursor:pointer;font-size:14px;font-weight:500}
+.tabs button.on{background:var(--violet);color:#fff;border-color:var(--violet)}
 .mod{display:grid;gap:10px;margin-top:14px}
 .item{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;gap:8px;border-inline-start:5px solid #e7a35f}
 .item.approved{border-inline-start-color:var(--ok)}
@@ -282,36 +153,22 @@ body.tmode main>section:not(#teacher),body.tmode .tabbar,body.tmode .links{displ
 .item img{width:150px;border-radius:10px;border:1px solid var(--line)}
 .item .meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--soft)}
 .item .acts{display:flex;gap:8px;flex-wrap:wrap}
+.empty{border:2px dashed var(--lilac);border-radius:var(--r);padding:24px;text-align:center;color:var(--soft);font-weight:300}
 
-footer{border-top:1px solid var(--line);padding:22px 16px 26px;text-align:center;font-size:13px;color:var(--soft)}
+footer{border-top:1px solid var(--line);padding:18px 16px 80px;text-align:center;font-size:13px;color:var(--soft);line-height:1.9}
+footer b{color:var(--plum);font-weight:500}
 footer a{color:inherit}
 
-@media (max-width:900px){
-  .links{display:none}
-  .stars{margin-inline-start:auto}
-  .tabbar{display:flex}
-  body{padding-bottom:64px}
-  .fab{bottom:78px}
-  .splash .logo{height:120px}
-  body.tmode{padding-bottom:0}
-  .hero{padding:26px 0 40px}
-  .hero .wrap,.two,.tree-wrap,.end{grid-template-columns:1fr}
-  .flips{grid-template-columns:repeat(2,1fr)}
+@media (max-width:860px){
+  .stage{grid-template-columns:1fr}
   .tiles{grid-template-columns:repeat(2,1fr)}
-  section.band{padding:44px 0}
-  .seg span{font-size:12.5px;padding:9px 3px}
-  .medal{max-width:420px;margin:0 auto;width:100%}
+  .splash .logo{height:120px}
+  .top .wrap{justify-content:center;text-align:center}
 }
-@media (max-width:480px){
-  .ready{grid-template-columns:1fr}
-  .wrap{padding:0 16px}
-  .card{padding:18px}
-}
-@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
-
 <div class="banner" id="demoBanner" hidden>وضع التجربة: المشاركات تُحفظ على هذا الجهاز فقط. بعد ربط قاعدة البيانات (ملف config.js) تصبح مشتركة بين الجميع.</div>
 <div class="banner" id="errBanner" hidden></div>
 <canvas id="fx" aria-hidden="true"></canvas>
@@ -322,7 +179,7 @@ footer a{color:inherit}
     <span class="min" id="spMin" hidden>وزارة التعليم</span>
     <span class="dept" id="spDept">الإدارة العامة للتعليم بمنطقة عسير</span>
     <h2 id="spSchool">متوسطة خيبر الجنوب</h2>
-    <h1>التسامح يجمعنا</h1>
+    <h1 class="grad">التسامح يجمعنا</h1>
     <p>ضعي إصبعك على البصمة واستمري بالضغط حتى يكتمل الإطار</p>
     <button class="press" id="press" type="button" aria-label="اضغطي باستمرار على البصمة للدخول">
       <svg class="ring" viewBox="0 0 170 170"><circle class="bg" cx="85" cy="85" r="80"/><circle class="fg" cx="85" cy="85" r="80"/></svg>
@@ -337,196 +194,50 @@ footer a{color:inherit}
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#home">
-      <img id="hdLogo" src="logo.png" alt="وزارة التعليم">
-      <span><small id="hdSchool">متوسطة خيبر الجنوب</small>التسامح يجمعنا</span>
-    </a>
-    <nav class="links" aria-label="أقسام الصفحة">
-      <a href="#join">شاركي</a><a href="#situations">المواقف</a><a href="#wall">الحائط</a><a href="#family">الأسرة والمدرسة</a><a href="#tree">الشجرة</a><a href="#end">الختام</a>
-    </nav>
-    <span class="stars" id="stars" title="إنجازاتكِ">⭐ ٠ / ٢</span>
+    <img id="hdLogo" src="logo.png" alt="وزارة التعليم">
+    <div class="who"><span id="hdDept">الإدارة العامة للتعليم بمنطقة عسير</span><b id="hdSchool">متوسطة خيبر الجنوب</b></div>
   </div>
 </header>
 
-<main>
-
-<!-- الرئيسية -->
-<section class="hero" id="home">
-  <div class="wrap">
-    <div>
-      <span class="eyebrow"><i></i>١٦ نوفمبر · اليوم العالمي للتسامح<span id="schoolName"></span></span>
-      <h1>التسامح يجمعنا</h1>
-      <p class="say">«بالتسامح نرتقي، وبالمحبة نلتقي»</p>
-      <p class="lead">مبادرة تجمع الطالبات وأولياء الأمور والمعلمات في شجرة واحدة. كل مشاركة ورقة، وكل ورقة رسالة محبة. لا تسجيل ولا أسماء.</p>
-      <div class="start">
-        <a class="btn" href="#join">ابدئي مشاركتكِ</a>
-        <button class="btn ghost" type="button" id="replay">🔊 مقولة خادم الحرمين الشريفين</button>
-      </div>
-    </div>
-    <div class="meter">
-      <h3>شجرة التسامح تكبر الآن</h3>
-      <div class="dial">
-        <svg viewBox="0 0 200 200"><defs><linearGradient id="dg"><stop offset="0" stop-color="#dc5b91"/><stop offset="1" stop-color="#6f3fa8"/></linearGradient></defs><circle class="bg" cx="100" cy="100" r="90"/><circle class="fg" id="dialFg" cx="100" cy="100" r="90"/></svg>
-        <div class="num"><b id="mTotal">٠</b><span>من <span id="mGoal">٢٠٠</span> ورقة</span></div>
-      </div>
-      <div class="trio">
-        <div><b id="mStu">٠</b>من الطالبات</div>
-        <div><b id="mPar">٠</b>من أولياء الأمور</div>
-        <div><b id="mStaff">٠</b>من المعلمات</div>
-      </div>
-      <div class="quick"><a href="#join">للطالبات</a><a href="#family">لأولياء الأمور والمعلمات</a><a href="#wall">الحائط</a><a href="#tree">الشجرة</a></div>
-    </div>
+<main class="wrap">
+  <div class="title">
+    <h1 class="grad">شجرة التسامح</h1>
+    <p>«بالتسامح نرتقي، وبالمحبة نلتقي»</p>
   </div>
-</section>
 
-<!-- شاركي -->
-<section class="band" id="join">
-  <div class="wrap">
-    <div class="head"><span class="step">الخطوة ١ · للطالبات</span><h2>شاركي بورقتكِ في الشجرة</h2><p>اختاري الطريقة التي تحبينها. تظهر مشاركتكِ للجميع بعد أن تراها المعلمة.</p></div>
-    <div class="two">
-      <form class="card form" id="joinForm">
-        <div class="seg" role="radiogroup" aria-label="نوع المشاركة">
-          <label><input type="radio" name="jt" id="jtWord" value="word" checked><span><svg viewBox="0 0 24 24"><path d="M4 20l4-1L19 8l-3-3L5 16l-1 4zM14 7l3 3"/></svg>عبارة</span></label>
-          <label><input type="radio" name="jt" id="jtCard" value="card"><span><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="3"/><path d="M8 10h8M8 14h5"/></svg>بطاقة جاهزة</span></label>
-          <label><input type="radio" name="jt" id="jtLetter" value="letter"><span><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 8l9 6 9-6"/></svg>رسالة</span></label>
-          <label><input type="radio" name="jt" id="jtDraw" value="draw"><span><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18c1.500 0 2-1 2-2s-.7-1.500 0-2.500S18 16 19 15a6 6 0 0 0 2-4.500C21 6 17 3 12 3z"/><circle cx="8" cy="11" r="1"/><circle cx="12" cy="8" r="1"/><circle cx="16" cy="10" r="1"/></svg>رسمة</span></label>
+  <div class="stage">
+    <div class="tree-box">
+      <span class="count"><b id="gNow">٠</b> ورقة</span>
+      <svg id="treeSvg" viewBox="0 0 800 780" role="img" aria-label="شجرة التسامح"></svg>
+      <div class="bar"><i id="gBar"></i></div>
+      <div class="goal"><span id="gMsg"></span><span>الهدف <span id="gGoal">٢٠٠</span></span></div>
+    </div>
+
+    <div class="side">
+      <form class="card form" id="leafForm">
+        <h2>أضيفي ورقتكِ 🌿</h2>
+        <div class="seg" role="radiogroup" aria-label="من أنتِ؟">
+          <label><input type="radio" name="role" id="rStudent" value="student" checked><span>طالبة</span></label>
+          <label><input type="radio" name="role" id="rParent" value="parent"><span>وليّ أمر</span></label>
+          <label><input type="radio" name="role" id="rStaff" value="staff"><span>معلمة</span></label>
         </div>
-
-        <div data-p="word">
-          <label class="l" for="wordText">أجمل عبارة عن التسامح</label>
-          <textarea id="wordText" rows="3" maxlength="160" placeholder="مثال: التسامح قوة لا يملكها إلا أصحاب القلوب الكبيرة"></textarea>
-          <div class="row" style="margin-top:8px"><div class="ideas" data-for="wordText"><button type="button">التسامح هو </button><button type="button">أسامح لأنّ </button><button type="button">القلب المتسامح </button></div><span class="count" data-count="wordText">٠ / ١٦٠</span></div>
-        </div>
-
-        <div data-p="card" hidden>
-          <span class="l form" style="display:block;font-weight:700;color:var(--plum);margin-bottom:8px">اختاري البطاقة الأقرب إلى قلبكِ</span>
-          <div class="ready" id="ready"></div>
-        </div>
-
-        <div data-p="letter" hidden>
-          <div class="seg three" role="radiogroup" aria-label="نوع الرسالة" style="margin-bottom:12px">
-            <label><input type="radio" name="kind" id="kSorry" value="sorry" checked><span>اعتذار</span></label>
-            <label><input type="radio" name="kind" id="kForgive" value="forgive"><span>مسامحة</span></label>
-            <label><input type="radio" name="kind" id="kThanks" value="thanks"><span>شكر</span></label>
-          </div>
-          <label class="l" for="letterText">رسالة من القلب، بلا أسماء</label>
-          <textarea id="letterText" rows="5" maxlength="400" placeholder="إلى من أخطأتُ في حقها يومًا…"></textarea>
-          <div class="row" style="margin-top:8px"><div class="ideas" data-for="letterText"><button type="button">إلى صديقتي التي </button><button type="button">أعتذر لأنني </button><button type="button">سامحتكِ لأنّ </button><button type="button">شكرًا لأنكِ </button></div><span class="count" data-count="letterText">٠ / ٤٠٠</span></div>
-        </div>
-
-        <div data-p="draw" hidden>
-          <div class="pad">
-            <canvas id="pad" width="480" height="480" aria-label="لوحة الرسم"></canvas>
-            <div class="swatches" id="swatches"></div>
-            <div class="row"><button class="btn small ghost" type="button" id="padUndo">تراجع</button><button class="btn small ghost" type="button" id="padClear">مسح اللوحة</button></div>
-          </div>
-          <label class="l" for="drawText" style="display:block;margin-top:10px">عنوان رسمتكِ (اختياري)</label>
-          <input type="text" id="drawText" maxlength="80" placeholder="مثال: يدان تتصافحان">
-        </div>
-
-        <button class="btn wide" type="submit">أرسلي وأضيفي ورقتكِ 💜</button>
-        <div id="joinNote" hidden></div>
+        <textarea id="leafText" rows="3" maxlength="160" aria-label="عبارتكِ عن التسامح" placeholder="اكتبي عبارة عن التسامح، بلا أسماء"></textarea>
+        <div class="ideas" data-for="leafText"><button type="button">التسامح هو </button><button type="button">أسامح لأنّ </button><button type="button">سأبدأ بالسلام على </button></div>
+        <button class="btn wide" type="submit">ازرعي ورقتكِ 💜</button>
+        <div id="leafNote" hidden></div>
+        <p class="hint">تظهر ورقتكِ لكِ فورًا بإطار منقّط، وللجميع بعد موافقة المعلمة.</p>
       </form>
-      <div class="aside">
-        <div class="card"><h3>قبل أن ترسلي</h3><ul><li>لا تكتبي اسمكِ ولا اسم أي زميلة.</li><li>اكتبي «صديقتي» أو «زميلتي» بدل الاسم.</li><li>يمكنكِ المشاركة بأكثر من طريقة.</li><li>ورقتكِ تظهر لكِ فورًا بإطار منقّط، وللجميع بعد موافقة المعلمة.</li></ul></div>
-        <div class="card"><h3>ماذا بعد؟</h3><ul><li>جرّبي المواقف الخمسة.</li><li>اتركي قلبًا لمشاركات زميلاتكِ في الحائط.</li><li>احصلي على وسامكِ في الختام.</li></ul></div>
+
+      <div class="card bubble" aria-live="polite">
+        <span class="chip plain" id="bubbleKind">رسالة ورقة</span>
+        <q id="bubbleText">اضغطي على أي ورقة في الشجرة لتقرئي رسالتها.</q>
+        <button class="btn small ghost" type="button" id="randLeaf">ورقة عشوائية</button>
       </div>
+
+      <div class="legend"><span><i style="background:#dc5b91"></i>طالبة</span><span><i style="background:#6f3fa8"></i>وليّ أمر</span><span><i style="background:#d99a2b"></i>معلمة</span></div>
     </div>
   </div>
-</section>
 
-<!-- المواقف -->
-<section class="band tint" id="situations">
-  <div class="wrap">
-    <div class="head"><span class="step">الخطوة ٢</span><h2>ماذا ستفعلين؟</h2><p id="flipNote">ابدئي بقلب البطاقات لتحوّلي لحظة الغضب إلى تسامح، ثم أجيبي عن خمسة مواقف من يومكِ المدرسي.</p></div>
-    <div class="flips" id="flips"></div>
-    <div class="card quiz" id="quiz"></div>
-  </div>
-</section>
-
-<!-- الحائط -->
-<section class="band tint" id="wall">
-  <div class="wrap">
-    <div class="head"><span class="live"><i></i>أحدث المشاركات، تتحدّث تلقائيًا</span><h2>حائط التسامح</h2><p>اضغطي على أي مشاركة لتتركي لها قلبًا.</p></div>
-    <div class="tabs" id="wallTabs">
-      <button type="button" data-f="all" class="on">الكل <em></em></button>
-      <button type="button" data-f="student">الطالبات <em></em></button>
-      <button type="button" data-f="parent">أولياء الأمور <em></em></button>
-      <button type="button" data-f="staff">المعلمات والإدارة <em></em></button>
-    </div>
-    <div class="wall" id="wallBox"></div>
-  </div>
-</section>
-
-<!-- الأسرة والمدرسة -->
-<section class="band" id="family">
-  <div class="wrap">
-    <div class="head"><span class="step">الخطوة ٣ · لأولياء الأمور والمعلمات</span><h2>كلمتكم تُكمل الشجرة</h2><p>التسامح يبدأ من البيت ويكبر في المدرسة. شاركونا كلمة لبناتنا عن العفو والاحترام وقبول الآخر.</p></div>
-    <div class="two">
-      <form class="card form" id="famForm">
-        <div class="seg two-c" role="radiogroup" aria-label="صفة المشارك">
-          <label><input type="radio" name="frole" id="frParent" value="parent" checked><span><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9H3z"/><path d="M12 17.500s-3-1.800-3-3.800a1.700 1.700 0 0 1 3-1 1.700 1.700 0 0 1 3 1c0 2-3 3.800-3 3.800z"/></svg>وليّ أمر / وليّة أمر</span></label>
-          <label><input type="radio" name="frole" id="frStaff" value="staff"><span><svg viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11.500V16c0 1.500 3 3 6 3s6-1.500 6-3v-4.500"/></svg>معلمة / إدارية</span></label>
-        </div>
-        <label class="l" for="famText">كلمتكم عن التسامح</label>
-        <textarea id="famText" rows="4" maxlength="300" placeholder="مثال: علّمتني الحياة أن من يسامح يربح راحة قلبه أولًا"></textarea>
-        <div class="row"><div class="ideas" data-for="famText"><button type="button">وصيتي لابنتي: </button><button type="button">علّمتني الحياة أن </button><button type="button">في بيتنا نتسامح حين </button><button type="button">لطالباتي أقول: </button></div><span class="count" data-count="famText">٠ / ٣٠٠</span></div>
-        <button class="btn violet wide" type="submit">إرسال المشاركة</button>
-        <div id="famNote" hidden></div>
-      </form>
-      <div class="aside">
-        <div class="card"><h3>همسة لأولياء الأمور</h3><ul><li>احكوا لبناتكم موقفًا سامحتم فيه أحدًا وما شعرتم به.</li><li>تابعوا استخدامهنّ الآمن للإنترنت، وذكّروهنّ بأن الكلمة المكتوبة تبقى.</li><li>الاعتذار أمام الأبناء يعلّمهم أكثر من مئة نصيحة.</li></ul></div>
-        <div class="card"><h3>الخصوصية</h3><p style="font-size:14.5px;font-weight:300">لا نطلب اسمًا ولا رقمًا. تُعرض المشاركة بصفة صاحبها فقط: طالبة، وليّ أمر، أو معلمة.</p></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- الشجرة -->
-<section class="band tint" id="tree">
-  <div class="wrap">
-    <div class="head"><span class="step">الخطوة ٤</span><h2>شجرة التسامح</h2><p>كل مشاركة منشورة ورقة على الشجرة. اضغطي على أي ورقة لتقرئي رسالتها.</p></div>
-    <div class="tree-wrap">
-      <div class="tree-box"><svg id="treeSvg" viewBox="0 0 800 780" role="img" aria-label="شجرة التسامح"></svg></div>
-      <div class="side">
-        <div class="card goal">
-          <div class="nums"><span><b id="gNow">٠</b> ورقة</span><span>الهدف <span id="gGoal">٢٠٠</span></span></div>
-          <div class="bar"><i id="gBar"></i></div>
-          <span class="hint" id="gMsg">كوني من أوائل من يزرعن ورقة.</span>
-        </div>
-        <div class="card bubble" aria-live="polite">
-          <span class="chip plain" id="bubbleKind">رسالة ورقة</span>
-          <q id="bubbleText">اضغطي على ورقة من الشجرة لتظهر رسالتها هنا.</q>
-          <div class="row" style="margin-top:10px"><button class="btn small ghost" type="button" id="randLeaf">ورقة عشوائية</button><a class="btn small" href="#join">أضيفي ورقة</a></div>
-        </div>
-        <div class="legend"><span><i style="background:#dc5b91"></i>طالبة</span><span><i style="background:#6f3fa8"></i>وليّ أمر</span><span><i style="background:#d99a2b"></i>معلمة</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- الختام -->
-<section class="band" id="end">
-  <div class="wrap end">
-    <div class="medal">
-      <div class="lock" id="medalLock"><b>🔒</b>شاركي بورقة واحدة على الأقل ليُفتح وسامكِ</div>
-      <img id="medalImg" alt="وسام التسامح" hidden>
-      <div class="row" style="justify-content:center;margin-top:12px" id="medalActs" hidden><a class="btn small" id="medalSave" download="وسام-التسامح.png">حفظ الوسام</a><span class="hint">أو اضغطي مطوّلًا على الصورة</span></div>
-    </div>
-    <div>
-      <span class="step rose">الختام</span>
-      <p class="quote" style="margin-top:14px">﴿وَلْيَعْفُوا وَلْيَصْفَحُوا ۗ أَلَا تُحِبُّونَ أَن يَغْفِرَ اللَّهُ لَكُمْ﴾<small>سورة النور، الآية ٢٢</small></p>
-      <div class="checks" id="checks">
-        <div data-k="post"><i>✓</i>شاركتُ بورقة في الشجرة</div>
-        <div data-k="quiz"><i>✓</i>أتممتُ المواقف الخمسة</div>
-      </div>
-      <p style="font-weight:300;max-width:34em">التسامح لا ينتهي بانتهاء هذا اليوم. ابدئي غدًا بابتسامة لمن اختلفتِ معها، وشاركي رابط المبادرة مع أسرتكِ لتكبر الشجرة.</p>
-      <div class="credits" id="credits"></div>
-    </div>
-  </div>
-</section>
-
-<!-- لوحة المعلمة -->
 <section id="teacher">
   <div class="wrap">
     <div class="head"><span class="step">خاص بالمعلمة</span><h2>لوحة المعلمة</h2><p>راجعي المشاركات قبل نشرها، واحذفي ما لا يناسب، وتابعي نمو الشجرة. <a href="#home">العودة للموقع</a></p></div>
@@ -563,15 +274,11 @@ footer a{color:inherit}
 
 </main>
 
-<footer>مبادرة «التسامح يجمعنا» · اليوم العالمي للتسامح · <span id="footDept">الإدارة العامة للتعليم بمنطقة عسير</span><span id="footSchool"></span> · <a href="#teacher">لوحة المعلمة</a></footer>
-
-<nav class="tabbar" aria-label="تنقل سريع">
-  <a href="#home"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9h-6v-6H9v6H3z"/></svg>الرئيسية</a>
-  <a href="#join"><svg viewBox="0 0 24 24"><path d="M4 20l4-1L19 8l-3-3L5 16l-1 4z"/></svg>شاركي</a>
-  <a href="#wall"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="8" height="7" rx="2"/><rect x="13" y="4" width="8" height="11" rx="2"/><rect x="3" y="13" width="8" height="7" rx="2"/><rect x="13" y="17" width="8" height="3" rx="1.500"/></svg>الحائط</a>
-  <a href="#family"><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="10" r="2.500"/><path d="M2 20c0-3.500 2.700-6 6-6s6 2.500 6 6M14.500 20c0-2.500 1-4.500 3-4.500s4 1.500 4 4.500"/></svg>الأسرة</a>
-  <a href="#tree"><svg viewBox="0 0 24 24"><path d="M12 21v-7M12 14a5 5 0 0 1-5-5 5 5 0 0 1 10 0 5 5 0 0 1-5 5zM9 21h6"/></svg>الشجرة</a>
-</nav>
+<footer>
+  مبادرة «التسامح يجمعنا» · اليوم العالمي للتسامح<br>
+  <span id="footDept">الإدارة العامة للتعليم بمنطقة عسير</span> · <span id="footSchool">متوسطة خيبر الجنوب</span><br>
+  <span id="credits"></span> · <a href="#teacher">لوحة المعلمة</a>
+</footer>
 
 <script src="config.js"></script>
 <script>
@@ -599,15 +306,15 @@ const ROLE = { student: "طالبة", parent: "وليّ أمر", staff: "معل�
 const roleOf = p => ROLE[p.role] ? p.role : "student";
 const okImg = s => typeof s === "string" && /^data:image\/(jpeg|png|webp);base64,/.test(s);
 
-if(SITE.school){ $("#schoolName").textContent = " · " + SITE.school; $("#footSchool").textContent = " · " + SITE.school; }
-$("#spSchool").textContent = SITE.school; $("#spDept").textContent = SITE.dept; $("#footDept").textContent = SITE.dept;
-$("#hdSchool").textContent = [SITE.deptShort, SITE.school].filter(Boolean).join(" · ");
+$("#gGoal").textContent = AR(GOAL);
+$("#spSchool").textContent = SITE.school; $("#spDept").textContent = SITE.dept;
+$("#hdDept").textContent = SITE.dept; $("#hdSchool").textContent = SITE.school;
+$("#footDept").textContent = SITE.dept; $("#footSchool").textContent = SITE.school;
+$("#credits").textContent = [SITE.principal && "مديرة المدرسة: " + SITE.principal, SITE.teacher && "منفذة المبادرة: " + SITE.teacher].filter(Boolean).join(" · ");
 [["#spLogo", "#spMin"], ["#hdLogo", null]].forEach(l => {
   const im = $(l[0]), bad = () => { im.hidden = true; if(l[1]) $(l[1]).hidden = false; };
   if(im.complete && !im.naturalWidth) bad(); else im.addEventListener("error", bad);
 });
-[["مديرة المدرسة", SITE.principal], ["منفذة المبادرة", SITE.teacher]].forEach(c => { if(!c[1]) return; const d = el("div"); d.appendChild(el("small", null, c[0])); d.appendChild(el("b", null, c[1])); $("#credits").appendChild(d); });
-$("#mGoal").textContent = AR(GOAL); $("#gGoal").textContent = AR(GOAL);
 
 /* ---------- قصاصات القلوب ---------- */
 const FX = (function(){
@@ -652,13 +359,13 @@ function loadScript(src){ return new Promise((res, rej) => { const s = document.
 function showErr(msg){ const b = $("#errBanner"); b.textContent = msg; b.hidden = false; }
 
 function demoStore(){
-  const KEY = "tsm-demo-v2"; let d = LS.get(KEY, null);
+  const KEY = "tsm-demo-v3"; let d = LS.get(KEY, null);
   if(!d){
     const t = Date.now(), ex = (i, type, role, text, status, kind) => ({ id: "ex" + i, type, role, text, status: status || "approved", kind, createdAt: t - (20 - i) * 1000, pid: "ex-" + i });
     d = { posts: [
       ex(1, "word", "student", "(مثال) التسامح زينة الأقوياء"),
-      ex(2, "card", "student", "(مثال) سأبدأ أنا بالسلام"),
-      ex(3, "letter", "student", "(مثال) شكرًا لصديقتي التي سامحتني قبل أن أعتذر.", "approved", "thanks"),
+      ex(2, "word", "student", "(مثال) سأبدأ أنا بالسلام"),
+      ex(3, "word", "student", "(مثال) شكرًا لصديقتي التي سامحتني قبل أن أعتذر."),
       ex(4, "word", "parent", "(مثال) وصيتي لابنتي: القلب الذي يسامح ينام مرتاحًا."),
       ex(5, "word", "staff", "(مثال) لطالباتي أقول: الخلاف يمرّ، والكلمة الطيبة تبقى."),
       ex(6, "word", "student", "(مثال) مشاركة تنتظر موافقة المعلمة", "pending")
@@ -714,95 +421,26 @@ function myPending(){
 }
 function rememberMine(p){ const m = LS.get("tsm-mine", []); const o = Object.assign({}, p); delete o.img; if(p.img) o.hadImg = 1; m.push(o); LS.set("tsm-mine", m.slice(-30)); }
 
-/* ---------- الإنجازات ---------- */
-const done = LS.get("tsm-done2", {});
-function markDone(k){ if(!done[k]){ done[k] = 1; LS.set("tsm-done2", done); } paintDone(); }
-function paintDone(){
-  const n = ["post", "quiz"].filter(k => done[k]).length;
-  $("#stars").textContent = "⭐ " + AR(n) + " / ٢";
-  $$("#checks div").forEach(d => d.classList.toggle("ok", !!done[d.dataset.k]));
-  drawMedal();
-}
 
-/* ---------- الإرسال ---------- */
+/* ---------- إرسال ورقة ---------- */
 let lastSend = 0;
-function send(p, noteBox, btn){
-  p.text = (p.text || "").replace(/\s+/g, " ").trim();
-  if(p.type !== "draw" && p.text.length < 3){ note(noteBox, "اكتبي مشاركتكِ أولًا ثم أرسليها.", true); return Promise.resolve(false); }
-  if(Date.now() - lastSend < 4000){ note(noteBox, "لحظة من فضلكِ، ثم أرسلي مرة أخرى.", true); return Promise.resolve(false); }
-  Object.assign(p, { id: rid(), status: "pending", createdAt: Date.now(), pid: PID });
-  Object.keys(p).forEach(k => { if(p[k] == null) delete p[k]; });
+const byNew = (a, b) => (b.createdAt || 0) - (a.createdAt || 0), byOld = (a, b) => (a.createdAt || 0) - (b.createdAt || 0);
+function typeLabel(p){ return p.type === "letter" ? "رسالة " + (KIND[p.kind] || "من القلب") : (TYPE[p.type] || "مشاركة"); }
+const ta = $("#leafText");
+$$(".ideas button").forEach(b => b.addEventListener("click", () => { ta.value = b.textContent; ta.focus(); try{ ta.setSelectionRange(ta.value.length, ta.value.length); }catch(e){} }));
+$("#leafForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  const box = $("#leafNote"), btn = $("button[type=submit]", this), text = ta.value.replace(/\s+/g, " ").trim();
+  if(text.length < 3){ note(box, "اكتبي عبارتكِ أولًا ثم أرسليها.", true); return; }
+  if(Date.now() - lastSend < 4000){ note(box, "لحظة من فضلكِ، ثم أرسلي مرة أخرى.", true); return; }
+  const p = { type: "word", role: $("input[name=role]:checked").value, text, id: rid(), status: "pending", createdAt: Date.now(), pid: PID };
   btn.disabled = true;
-  return store.add(p).then(() => {
-    lastSend = Date.now(); rememberMine(p);
-    LS.set("tsm-role", p.role);
-    if(!LS.get("tsm-num", 0)) LS.set("tsm-num", approved.length + myPending().length);
-    markDone("post");
-    note(noteBox, "وصلت مشاركتكم 💜 ستظهر للجميع بعد موافقة المعلمة، وورقتكم الآن على الشجرة بإطار منقّط.");
-    FX.at(btn, 40); renderAll(); return true;
-  }).catch(() => { note(noteBox, "لم تُرسل المشاركة. تأكدي من اتصال الإنترنت وحاولي مرة أخرى.", true); return false; })
-    .then(r => { btn.disabled = false; return r; });
-}
-
-/* عدّادات الحروف والبدايات الجاهزة */
-$$("[data-count]").forEach(c => {
-  const ta = document.getElementById(c.dataset.count), max = ta.maxLength;
-  const up = () => c.textContent = AR(ta.value.length) + " / " + AR(max);
-  ta.addEventListener("input", up); ta._up = up;
-});
-$$(".ideas").forEach(g => {
-  const ta = document.getElementById(g.dataset.for);
-  $$("button", g).forEach(b => b.addEventListener("click", () => { ta.value = b.textContent; ta.focus(); try{ ta.setSelectionRange(ta.value.length, ta.value.length); }catch(e){} ta._up && ta._up(); }));
-});
-
-/* نموذج الطالبات */
-const READY = ["سأبدأ أنا بالسلام", "أسامح لأن قلبي أكبر من الخلاف", "الاعتذار شجاعة وليس ضعفًا", "اختلافنا يجمّلنا ولا يفرّقنا", "كلمة طيبة تطفئ خصامًا طويلًا", "أعفو لأنني أحب أن يُعفى عني"];
-let readyPick = "";
-READY.forEach(t => {
-  const b = el("button", null, t); b.type = "button";
-  b.addEventListener("click", () => { readyPick = t; $$("#ready button").forEach(x => x.classList.toggle("on", x === b)); });
-  $("#ready").appendChild(b);
-});
-const jType = () => $("input[name=jt]:checked").value;
-$$("input[name=jt]").forEach(r => r.addEventListener("change", () => { $$("#joinForm [data-p]").forEach(p => p.hidden = p.dataset.p !== jType()); }));
-
-/* لوحة الرسم */
-const PAD = (function(){
-  const c = $("#pad"), ctx = c.getContext("2d"); let color = "#6f3fa8", strokes = [], cur = null;
-  const COLORS = ["#6f3fa8", "#dc5b91", "#f0a23a", "#2b8a66", "#3b82c4", "#2f1a47"];
-  COLORS.forEach((k, i) => { const b = el("button", i ? "" : "on"); b.type = "button"; b.style.background = k; b.setAttribute("aria-label", "لون " + AR(i + 1));
-    b.addEventListener("click", () => { color = k; $$("#swatches button").forEach(x => x.classList.toggle("on", x === b)); }); $("#swatches").appendChild(b); });
-  function paint(){
-    ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, c.width, c.height); ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.lineWidth = 9;
-    strokes.forEach(s => { ctx.strokeStyle = s.c; ctx.fillStyle = s.c; ctx.beginPath();
-      if(s.p.length === 1){ ctx.arc(s.p[0][0], s.p[0][1], 4.5, 0, 6.3); ctx.fill(); return; }
-      s.p.forEach((q, i) => i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1])); ctx.stroke(); });
-  }
-  const pos = e => { const r = c.getBoundingClientRect(); return [(e.clientX - r.left) * c.width / r.width, (e.clientY - r.top) * c.height / r.height]; };
-  c.addEventListener("pointerdown", e => { e.preventDefault(); try{ c.setPointerCapture(e.pointerId); }catch(x){} cur = { c: color, p: [pos(e)] }; strokes.push(cur); paint(); });
-  c.addEventListener("pointermove", e => { if(!cur) return; cur.p.push(pos(e)); paint(); });
-  ["pointerup", "pointercancel"].forEach(ev => c.addEventListener(ev, () => cur = null));
-  $("#padClear").addEventListener("click", () => { strokes = []; paint(); });
-  $("#padUndo").addEventListener("click", () => { strokes.pop(); paint(); });
-  paint();
-  return { empty: () => strokes.reduce((n, s) => n + s.p.length, 0) < 8, data: () => c.toDataURL("image/jpeg", .7), clear(){ strokes = []; paint(); } };
-})();
-
-$("#joinForm").addEventListener("submit", function(e){
-  e.preventDefault();
-  const t = jType(), box = $("#joinNote"), btn = $("button[type=submit]", this), p = { type: t, role: "student" };
-  if(t === "word") p.text = $("#wordText").value;
-  else if(t === "card"){ if(!readyPick){ note(box, "اختاري بطاقة أولًا.", true); return; } p.text = readyPick; }
-  else if(t === "letter"){ p.text = $("#letterText").value; p.kind = $("input[name=kind]:checked").value; }
-  else { if(PAD.empty()){ note(box, "ارسمي شيئًا على اللوحة أولًا.", true); return; } p.img = PAD.data(); p.text = $("#drawText").value; }
-  send(p, box, btn).then(ok => { if(!ok) return;
-    ["wordText", "letterText", "drawText"].forEach(id => { const x = document.getElementById(id); x.value = ""; x._up && x._up(); });
-    PAD.clear(); readyPick = ""; $$("#ready button").forEach(x => x.classList.remove("on")); });
-});
-$("#famForm").addEventListener("submit", function(e){
-  e.preventDefault();
-  send({ type: "word", role: $("input[name=frole]:checked").value, text: $("#famText").value }, $("#famNote"), $("button[type=submit]", this))
-    .then(ok => { if(ok){ $("#famText").value = ""; $("#famText")._up(); } });
+  store.add(p).then(() => {
+    lastSend = Date.now(); rememberMine(p); ta.value = "";
+    note(box, "زُرعت ورقتكِ 💜 ستظهر للجميع بعد موافقة المعلمة.");
+    FX.at(btn, 40); renderAll();
+  }).catch(() => note(box, "لم تُرسل الورقة. تأكدي من اتصال الإنترنت وحاولي مرة أخرى.", true))
+    .then(() => btn.disabled = false);
 });
 
 /* ---------- بصمة الدخول والصوت (يعمل تلقائيًا) ---------- */
@@ -812,7 +450,7 @@ $("#famForm").addEventListener("submit", function(e){
   const SS = { get(k){ try{ return sessionStorage.getItem(k); }catch(e){ return null; } }, set(k, v){ try{ sessionStorage.setItem(k, v); }catch(e){} } };
   let muted = SS.get("tsm-mute") === "1";
   music.volume = .7;
-  intro.addEventListener("error", () => { noIntro = true; $("#replay").hidden = true; paint(); });
+  intro.addEventListener("error", () => { noIntro = true; paint(); });
   music.addEventListener("error", () => { noMusic = true; paint(); });
   const playing = a => !a.paused && !a.ended;
   function paint(){
@@ -841,7 +479,6 @@ $("#famForm").addEventListener("submit", function(e){
     if(playing(intro) || playing(music)){ muted = true; SS.set("tsm-mute", "1"); intro.pause(); music.pause(); }
     else { muted = false; SS.set("tsm-mute", "0"); SS.get("tsm-intro") || noIntro ? playMusic() : playIntro(); }
   });
-  $("#replay").addEventListener("click", () => { if(playing(intro)) return intro.pause(); muted = false; SS.set("tsm-mute", "0"); playIntro(); });
   function enter(){
     clearTimeout(t); t = null; h.classList.remove("go"); h.classList.add("done");
     SS.set("tsm-in", "1"); muted = false; SS.set("tsm-mute", "0");
@@ -865,105 +502,6 @@ $("#famForm").addEventListener("submit", function(e){
   }
   paint();
 })();
-
-/* ---------- البطاقات القلّابة ---------- */
-(function(){
-  const CARDS = [["😠", "لن أكلّمها أبدًا!", "🤍", "سأمنحها فرصة ثانية"], ["😤", "هي التي بدأت!", "🤝", "سأبدأ أنا بالصلح"], ["😢", "لن أنسى ما فعلَته", "🕊️", "سامحتُ، وقلبي أخفّ"], ["🙄", "رأيها غريب!", "🌈", "رأيها مختلف، وهذا جميل"]];
-  let seen = 0;
-  CARDS.forEach(c => {
-    const b = el("button", "flip"); b.type = "button"; b.setAttribute("aria-label", c[1] + "، اقلبي البطاقة");
-    const inn = el("span", "in"), f = el("span", "f"), k = el("span", "b"), fw = el("span"), bw = el("span");
-    fw.appendChild(el("small", null, c[0])); fw.appendChild(document.createTextNode(c[1]));
-    bw.appendChild(el("small", null, c[2])); bw.appendChild(document.createTextNode(c[3]));
-    f.appendChild(fw); k.appendChild(bw); inn.appendChild(f); inn.appendChild(k); b.appendChild(inn);
-    b.addEventListener("click", () => { const first = !b.dataset.seen; b.classList.toggle("on"); b.dataset.seen = 1;
-      b.setAttribute("aria-label", b.classList.contains("on") ? c[3] : c[1]);
-      if(first){ seen++; FX.at(b, 12); if(seen === CARDS.length){ $("#flipNote").textContent = "رائع! حوّلتِ كل لحظات الغضب إلى تسامح. والآن إلى المواقف الخمسة."; } } });
-    $("#flips").appendChild(b);
-  });
-})();
-
-/* ---------- المواقف ---------- */
-const QUIZ = [
-  { e: "💬", q: "اختلفتِ مع صديقتكِ في الرأي أثناء نقاش في الفصل. ماذا تفعلين؟", o: [
-    { t: "أقاطعها وأصرّ على أن رأيي هو الصحيح.", f: "المقاطعة تجرح صديقتكِ وتغلق باب الحوار. لكل واحدة رأيها، والهدوء يقرّب القلوب. جرّبي اختيارًا آخر." },
-    { t: "أستمع لرأيها باحترام، ثم أوضّح رأيي بهدوء.", ok: 1, f: "اختلاف الرأي لا يفسد الودّ. حين تستمعين باحترام تتعلمين شيئًا جديدًا وتبقى صداقتكما أقوى." },
-    { t: "أتوقف عن الحديث معها بقية اليوم.", f: "الخصام يُطيل الخلاف ولا يحلّه. الاختلاف أمر طبيعي بين الصديقات. جرّبي اختيارًا آخر." } ] },
-  { e: "🤝", q: "أخطأت زميلتكِ في حقكِ، ثم جاءت تعتذر بصدق. كيف تتصرفين؟", o: [
-    { t: "أقبل اعتذارها وأفتح معها صفحة جديدة.", ok: 1, f: "قال تعالى: ﴿وَلْيَعْفُوا وَلْيَصْفَحُوا ۗ أَلَا تُحِبُّونَ أَن يَغْفِرَ اللَّهُ لَكُمْ﴾ (النور: ٢٢). الاعتذار شجاعة، وقبوله كرم." },
-    { t: "أرفض اعتذارها حتى تشعر بما شعرتُ به.", f: "ردّ الاعتذار يزيد الجرح جرحين. من اعتذرت بصدق تستحق فرصة. جرّبي اختيارًا آخر." },
-    { t: "أقبل الاعتذار، لكنني أذكّرها بخطئها كلما رأيتها.", f: "التسامح الحقيقي أن نطوي الصفحة، لا أن نعيد قراءتها كل يوم. جرّبي اختيارًا آخر." } ] },
-  { e: "🤫", q: "سمعتِ كلامًا غير لطيف يُقال عن زميلة غائبة. ما التصرف الصحيح؟", o: [
-    { t: "أنقل لها ما قيل عنها حتى تعرف.", f: "نقل الكلام يوجع قلبها ويشعل الخلاف بين الزميلات. جرّبي اختيارًا آخر." },
-    { t: "أشارك في الحديث حتى لا أبدو مختلفة.", f: "المشاركة في الغيبة تجعلنا جزءًا من الأذى. الشجاعة أن نقول كلمة طيبة. جرّبي اختيارًا آخر." },
-    { t: "لا أنقل الكلام، وأذكر زميلتي بخير، وأخبر المعلمة إن تكرر الأذى.", ok: 1, f: "حفظتِ غيبة زميلتكِ وأوقفتِ الأذى عندكِ. الكلمة الطيبة صدقة، واللجوء للمعلمة عند تكرار الإساءة تصرف حكيم." } ] },
-  { e: "🌍", q: "انضمت إلى فصلكِ طالبة جديدة تختلف عنكنّ في لهجتها وعاداتها، وتجلس وحدها. ماذا تفعلين؟", o: [
-    { t: "أرحّب بها وأدعوها للجلوس معنا وأتعرّف عليها.", ok: 1, f: "التسامح يعني أن نقبل اختلافنا ونراه جمالًا. ابتسامتكِ اليوم قد تكون أجمل ذكرى لها في مدرستها الجديدة." },
-    { t: "أتركها وشأنها، ستجد صديقات مع الوقت.", f: "الانتظار يتركها وحيدة في أصعب أيامها. خطوة صغيرة منكِ تصنع فرقًا كبيرًا. جرّبي اختيارًا آخر." },
-    { t: "أضحك مع الأخريات على طريقة كلامها.", f: "السخرية من الاختلاف تجرح ولا تُنسى. اختلاف اللهجات والعادات يُغني حياتنا. جرّبي اختيارًا آخر." } ] },
-  { e: "📱", q: "كتبت زميلة في مجموعة الفصل تعليقًا أزعجكِ. كيف تتصرفين؟", o: [
-    { t: "أردّ عليها فورًا أمام الجميع بتعليق أقسى.", f: "الردّ الغاضب أمام الجميع يكبّر المشكلة ويبقى مكتوبًا. جرّبي اختيارًا آخر." },
-    { t: "أتمهّل حتى أهدأ، ثم أحدّثها على انفراد بلطف.", ok: 1, f: "ربما لم تقصد الإساءة. التمهّل وحسن الظن والحديث الخاص يحفظ كرامتكما معًا. قال تعالى: ﴿فَمَنْ عَفَا وَأَصْلَحَ فَأَجْرُهُ عَلَى اللَّهِ﴾ (الشورى: ٤٠)." },
-    { t: "أصوّر التعليق وأرسله للزميلات الأخريات.", f: "نشر الخطأ يحوّل سوء فهم صغير إلى خلاف كبير. جرّبي اختيارًا آخر." } ] }
-];
-let qi = 0, firstTry = 0, tried = false;
-function renderQuiz(){
-  const box = $("#quiz"); box.textContent = "";
-  const dots = el("div", "dots"); QUIZ.forEach((_, i) => { const d = el("i"); if(i < qi) d.className = "on"; dots.appendChild(d); }); box.appendChild(dots);
-  if(qi >= QUIZ.length){
-    if(!done.quiz) FX.big(); markDone("quiz");
-    box.appendChild(el("div", "q-emoji", "🏅")); box.appendChild(el("p", "q-text", "أتممتِ المواقف الخمسة!"));
-    box.appendChild(el("p", null, "اخترتِ التصرف المتسامح من المحاولة الأولى في " + AR(firstTry) + " من " + AR(QUIZ.length) + " مواقف. المهم أنكِ الآن تعرفين الطريق في كل موقف."));
-    const r = el("div", "row"); r.style.marginTop = "18px";
-    const next = el("a", "btn", "إلى حائط التسامح"); next.href = "#wall";
-    const again = el("button", "btn ghost", "إعادة المواقف"); again.type = "button"; again.addEventListener("click", () => { qi = 0; firstTry = 0; renderQuiz(); });
-    r.appendChild(next); r.appendChild(again); box.appendChild(r); return;
-  }
-  const Q = QUIZ[qi]; tried = false;
-  box.appendChild(el("div", "q-emoji", Q.e)); box.appendChild(el("p", "hint", "الموقف " + AR(qi + 1) + " من " + AR(QUIZ.length))); box.appendChild(el("p", "q-text", Q.q));
-  const opts = el("div", "opts"), fb = el("div", "fb"); fb.hidden = true; fb.setAttribute("aria-live", "polite");
-  Q.o.forEach(o => {
-    const b = el("button", "opt", o.t); b.type = "button";
-    b.addEventListener("click", () => {
-      fb.hidden = false; fb.textContent = "";
-      if(o.ok){
-        if(!tried) firstTry++; b.classList.add("right"); FX.at(b, tried ? 12 : 26);
-        $$(".opt", opts).forEach(x => x.disabled = true); fb.className = "fb good";
-        fb.appendChild(el("b", null, "أحسنتِ! 🌟")); fb.appendChild(document.createTextNode(o.f));
-        const nx = el("button", "btn", qi === QUIZ.length - 1 ? "إنهاء المواقف" : "الموقف التالي"); nx.type = "button"; nx.style.marginTop = "12px";
-        nx.addEventListener("click", () => { qi++; renderQuiz(); }); fb.appendChild(el("br")); fb.appendChild(nx);
-      } else { tried = true; b.classList.add("wrong"); b.disabled = true; fb.className = "fb try"; fb.appendChild(el("b", null, "فكّري مرة أخرى 💭")); fb.appendChild(document.createTextNode(o.f)); }
-    });
-    opts.appendChild(b);
-  });
-  box.appendChild(opts); box.appendChild(fb);
-}
-
-
-/* ---------- الحائط ---------- */
-const byNew = (a, b) => (b.createdAt || 0) - (a.createdAt || 0), byOld = (a, b) => (a.createdAt || 0) - (b.createdAt || 0);
-let wallF = "all"; const loved = LS.get("tsm-loved", {});
-$$("#wallTabs button").forEach(b => b.addEventListener("click", () => { wallF = b.dataset.f; $$("#wallTabs button").forEach(x => x.classList.toggle("on", x === b)); renderWall(); }));
-function typeLabel(p){ return p.type === "letter" ? "رسالة " + (KIND[p.kind] || "من القلب") : (TYPE[p.type] || "مشاركة"); }
-function renderWall(){
-  const box = $("#wallBox"); box.textContent = "";
-  const cnt = { all: approved.length, student: 0, parent: 0, staff: 0 }; approved.forEach(p => cnt[roleOf(p)]++);
-  $$("#wallTabs button").forEach(b => $("em", b).textContent = AR(cnt[b.dataset.f]));
-  const items = myPending().map(p => ({ p, mine: true })).concat(approved.slice().sort(byNew).map(p => ({ p }))).filter(it => wallF === "all" || roleOf(it.p) === wallF);
-  if(!items.length){ box.appendChild(el("div", "empty", "لا مشاركات هنا بعد. كونوا البداية ✨")); return; }
-  items.forEach(it => {
-    const p = it.p, r = roleOf(p), c = el("article", "post r-" + r + " t-" + p.type + (it.mine ? " mine" : ""));
-    if(okImg(p.img)){ const im = el("img"); im.src = p.img; im.alt = p.text || "رسمة عن التسامح"; im.loading = "lazy"; c.appendChild(im); }
-    else if(p.hadImg) c.appendChild(el("p", "tx", "🎨 رسمتكِ"));
-    if(p.text) c.appendChild(el("p", "tx", p.text));
-    const ft = el("div", "ft"); ft.appendChild(el("span", "chip " + (r === "student" ? "" : r), ROLE[r])); ft.appendChild(el("span", null, typeLabel(p)));
-    if(it.mine) ft.appendChild(el("span", "chip pending", "بانتظار الموافقة"));
-    else { const h = el("span", "heart", "💜"); h.setAttribute("aria-hidden", "true"); ft.appendChild(h);
-      if(loved[p.id]) c.classList.add("loved");
-      c.addEventListener("click", () => { if(c.classList.toggle("loved")){ loved[p.id] = 1; FX.at(h, 10); } else delete loved[p.id]; LS.set("tsm-loved", loved); }); }
-    c.appendChild(ft); box.appendChild(c);
-  });
-}
 
 /* ---------- الشجرة ---------- */
 const NS = "http://www.w3.org/2000/svg";
@@ -1003,50 +541,20 @@ function drawTree(svg, posts, interactive){
   });
 }
 function showLeaf(p){
-  $("#bubbleKind").textContent = p._mine ? "ورقتكِ · بانتظار الموافقة" : ROLE[roleOf(p)] + " · " + typeLabel(p);
-  $("#bubbleText").textContent = p.text || "رسمة عن التسامح، تجدينها في الحائط 🎨";
+  $("#bubbleKind").textContent = p._mine ? "ورقتكِ · بانتظار الموافقة" : ROLE[roleOf(p)];
+  $("#bubbleText").textContent = p.text || "رسمة عن التسامح 🎨";
 }
 function renderTree(){
   const posts = approved.slice().sort(byOld), mine = myPending().map(m => Object.assign({ _mine: true }, m)), n = posts.length;
   drawTree($("#treeSvg"), posts.concat(mine), true); if(n) firstTree = false;
-  const pct = Math.min(1, n / GOAL), cnt = { student: 0, parent: 0, staff: 0 }; posts.forEach(p => cnt[roleOf(p)]++);
-  $("#gNow").textContent = AR(n); $("#gBar").style.width = (pct * 100) + "%";
-  $("#gMsg").textContent = n >= GOAL ? "اكتملت الشجرة! شكرًا لكل قلب متسامح 🌸" : n ? "بقي " + AR(GOAL - n) + " ورقة لتكتمل الشجرة." : "كوني من أوائل من يزرعن ورقة.";
-  $("#mTotal").textContent = AR(n); $("#dialFg").style.strokeDashoffset = 565 * (1 - pct);
-  $("#mStu").textContent = AR(cnt.student); $("#mPar").textContent = AR(cnt.parent); $("#mStaff").textContent = AR(cnt.staff);
+  $("#gNow").textContent = AR(n); $("#gBar").style.width = Math.min(100, n / GOAL * 100) + "%";
+  $("#gMsg").textContent = n >= GOAL ? "اكتملت الشجرة! 🌸" : "بقي " + AR(GOAL - n) + " ورقة";
 }
 $("#randLeaf").addEventListener("click", () => {
   if(!approved.length) return; let p;
   do { p = approved[Math.floor(Math.random() * approved.length)]; } while(approved.length > 1 && p.id === selLeaf);
   selLeaf = p.id; showLeaf(p); renderTree(); const s = $("#treeSvg .leaf.sel"); if(s) FX.at(s, 10);
 });
-
-/* ---------- الوسام ---------- */
-let medalKey = "";
-function drawMedal(){
-  const open = !!done.post; $("#medalLock").hidden = open; $("#medalImg").hidden = !open; $("#medalActs").hidden = !open;
-  if(!open) return;
-  const role = LS.get("tsm-role", "student"), num = LS.get("tsm-num", 1), n = ["post", "quiz"].filter(k => done[k]).length;
-  const key = role + num + n; if(key === medalKey) return; medalKey = key;
-  const title = role === "parent" ? "وسام شريك التسامح" : role === "staff" ? "وسام قدوة التسامح" : "وسام سفيرة التسامح";
-  const go = () => {
-    const c = document.createElement("canvas"); c.width = c.height = 1080; const x = c.getContext("2d");
-    const g = x.createLinearGradient(0, 0, 1080, 1080); g.addColorStop(0, "#6f3fa8"); g.addColorStop(1, "#dc5b91"); x.fillStyle = g; x.fillRect(0, 0, 1080, 1080);
-    x.fillStyle = "#fdfbff"; x.beginPath(); if(x.roundRect) x.roundRect(48, 48, 984, 984, 56); else x.rect(48, 48, 984, 984); x.fill();
-    x.strokeStyle = "#e2d3f3"; x.lineWidth = 3; x.beginPath(); if(x.roundRect) x.roundRect(78, 78, 924, 924, 40); else x.rect(78, 78, 924, 924); x.stroke();
-    x.textAlign = "center"; x.direction = "rtl";
-    x.fillStyle = "#85749a"; x.font = "500 34px Alexandria, sans-serif"; x.fillText("اليوم العالمي للتسامح · ١٦ نوفمبر", 540, 170);
-    x.save(); x.translate(540, 330); x.scale(9, 9); x.fillStyle = "#dc5b91"; x.beginPath();
-    x.moveTo(0, 10); x.bezierCurveTo(-18, -2, -9, -14, 0, -6); x.bezierCurveTo(9, -14, 18, -2, 0, 10); x.fill(); x.restore();
-    x.fillStyle = "#6f3fa8"; x.font = "900 84px Alexandria, sans-serif"; x.fillText(title, 540, 560);
-    x.fillStyle = "#2f1a47"; x.font = "500 38px Alexandria, sans-serif"; x.fillText("«بالتسامح نرتقي، وبالمحبة نلتقي»", 540, 650);
-    x.fillStyle = "#4b3a5e"; x.font = "400 36px Alexandria, sans-serif"; x.fillText("ورقتي رقم " + AR(num) + " في شجرة التسامح", 540, 760);
-    x.fillStyle = "#d99a2b"; x.font = "64px serif"; x.fillText("★".repeat(n) + "☆".repeat(2 - n), 540, 850);
-    x.fillStyle = "#85749a"; x.font = "500 30px Alexandria, sans-serif"; x.fillText(SITE.dept, 540, 905); x.fillText("وزارة التعليم" + (SITE.school ? " · " + SITE.school : ""), 540, 955);
-    const url = c.toDataURL("image/png"); $("#medalImg").src = url; $("#medalSave").href = url;
-  };
-  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(go, go);
-}
 
 /* ---------- لوحة المعلمة ---------- */
 let modF = "pending", modR = "all";
@@ -1095,19 +603,13 @@ $("#loginForm").addEventListener("submit", function(e){
     .catch(() => note($("#loginNote"), "تعذّر الدخول. تأكدي من البريد وكلمة المرور.", true)).then(() => btn.disabled = false);
 });
 
-/* ---------- العرض والتنقل ---------- */
-function renderAll(){ renderWall(); renderTree(); renderTeacher(); }
-function route(){ const t = location.hash === "#teacher"; document.body.classList.toggle("tmode", t); if(t) scrollTo(0, 0); }
+/* ---------- التشغيل ---------- */
+function renderAll(){ renderTree(); renderTeacher(); }
+function route(){ const t = location.hash === "#teacher"; document.body.classList.toggle("tmode", t); scrollTo(0, 0); }
 addEventListener("hashchange", route);
-if("IntersectionObserver" in window){
-  const navs = $$(".links a, .tabbar a");
-  const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) navs.forEach(a => a.classList.toggle("on", a.getAttribute("href") === "#" + e.target.id)); }), { rootMargin: "-45% 0px -50% 0px" });
-  $$("main > section[id]").forEach(s => { if(s.id !== "teacher") io.observe(s); });
-}
-
 store = LIVE ? liveStore() : demoStore();
 $("#demoBanner").hidden = LIVE;
-route(); renderQuiz(); paintDone(); renderAll();
+route(); renderAll();
 store.start().catch(() => showErr("تعذّر الاتصال بقاعدة البيانات. تأكدي من اتصال الإنترنت ومن القيم في ملف config.js."));
 })();
 </script>
