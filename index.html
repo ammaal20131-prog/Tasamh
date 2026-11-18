@@ -109,6 +109,11 @@ body.intro .hero{min-height:calc(100svh - 190px);display:flex;flex-direction:col
 textarea,input[type=email],input[type=password],select{width:100%;border:1.5px solid var(--lilac);border-radius:14px;background:var(--paper);padding:11px 14px;resize:vertical;transition:border-color .2s,box-shadow .2s}
 textarea:focus,input:focus,select:focus{outline:0;border-color:var(--violet);box-shadow:0 0 0 4px var(--mist)}
 .ideas{display:flex;gap:6px;flex-wrap:wrap}
+.namebox{position:relative}
+.namebox svg{position:absolute;top:50%;inset-inline-start:13px;width:20px;height:20px;transform:translateY(-50%);fill:none;stroke:var(--violet);stroke-width:1.8;stroke-linecap:round;pointer-events:none}
+.namebox input{width:100%;border:1.5px solid var(--lilac);border-radius:14px;background:var(--paper);padding:11px 14px;padding-inline-start:42px;transition:border-color .2s,box-shadow .2s}
+.namebox input:focus{outline:0;border-color:var(--violet);box-shadow:0 0 0 4px var(--mist)}
+.who-name{color:var(--plum)}
 .ideas button{border:1px solid var(--lilac);background:var(--mist);border-radius:99px;padding:2px 12px;font-size:13px;cursor:pointer}
 .ideas button:hover{background:var(--blush)}
 .hint{font-size:12.5px;color:var(--soft);font-weight:300;line-height:1.7}
@@ -370,7 +375,11 @@ footer a{color:inherit}
           <label><input type="radio" name="role" id="rParent" value="parent"><span>وليّ أمر</span></label>
           <label><input type="radio" name="role" id="rStaff" value="staff"><span>معلمة</span></label>
         </div>
-        <textarea id="leafText" rows="3" maxlength="160" aria-label="عبارتكِ عن التسامح" placeholder="اكتبي عبارة عن التسامح، ويمكنكِ إضافة اسمكِ"></textarea>
+        <div class="namebox">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+          <input type="text" id="leafName" maxlength="40" autocomplete="off" aria-label="الاسم (اختياري)" placeholder="الاسم (اختياري)">
+        </div>
+        <textarea id="leafText" rows="3" maxlength="160" aria-label="عبارتكِ عن التسامح" placeholder="اكتبي عبارة عن التسامح"></textarea>
         <div class="ideas" data-for="leafText"><button type="button">التسامح هو </button><button type="button">أسامح لأنّ </button><button type="button">سأبدأ بالسلام على </button></div>
         <button class="btn wide" type="submit">ازرعي ورقتكِ 💜</button>
         <div id="leafNote" hidden></div>
@@ -595,6 +604,7 @@ $("#leafForm").addEventListener("submit", function(e){
   if(text.length < 3){ note(box, "اكتبي عبارتكِ أولًا ثم أرسليها.", true); return; }
   if(Date.now() - lastSend < 4000){ note(box, "لحظة من فضلكِ، ثم أرسلي مرة أخرى.", true); return; }
   const p = { type: "word", role: $("input[name=role]:checked").value, text, id: rid(), status: "approved", createdAt: Date.now(), pid: PID };
+  const nm = $("#leafName").value.replace(/\s+/g, " ").trim().slice(0, 40); if(nm) p.name = nm;
   btn.disabled = true;
   store.add(p).then(() => {
     lastSend = Date.now(); rememberMine(p); ta.value = "";
@@ -673,7 +683,7 @@ function drawTree(svg, posts, interactive){
   });
 }
 function showLeaf(p){
-  $("#bubbleKind").textContent = p._mine ? "ورقتكِ 💜" : ROLE[roleOf(p)];
+  $("#bubbleKind").textContent = (p._mine ? "ورقتكِ 💜" : ROLE[roleOf(p)]) + (p.name ? " · " + p.name : "");
   $("#bubbleText").textContent = p.text || "رسمة عن التسامح 🎨";
 }
 function renderTree(){
@@ -704,7 +714,7 @@ function renderTeacher(){
   if(!list.length) box.appendChild(el("div", "empty", modF === "hidden" ? "لا توجد مشاركات مخفية." : "لا توجد مشاركات هنا بعد."));
   list.forEach(p => {
     const ok = p.status !== "hidden", r = roleOf(p), it = el("div", "item" + (ok ? " approved" : "")), meta = el("div", "meta");
-    meta.appendChild(el("span", "chip " + (r === "student" ? "" : r), ROLE[r])); meta.appendChild(el("span", "chip plain", typeLabel(p)));
+    meta.appendChild(el("span", "chip " + (r === "student" ? "" : r), ROLE[r])); if(p.name) meta.appendChild(el("span", "chip plain", p.name)); meta.appendChild(el("span", "chip plain", typeLabel(p)));
     meta.appendChild(el("span", "chip " + (ok ? "approved" : "pending"), ok ? "منشورة" : "مخفية"));
     meta.appendChild(el("span", null, new Date(p.createdAt || 0).toLocaleString("ar", { hour: "2-digit", minute: "2-digit", day: "numeric", month: "short" })));
     it.appendChild(meta);
@@ -750,7 +760,7 @@ function renderWall(){
   if(!wallOrder.length){ box.appendChild(el("p", "hint", "الحائط ينتظر أول رسالة 🌱")); return; }
   wallOrder.forEach(id => {
     const p = byId[id], r = roleOf(p), c = el("div", "note-card r-" + r);
-    c.dataset.id = id; c.appendChild(el("p", null, p.text || "")); c.appendChild(el("span", null, ROLE[r]));
+    c.dataset.id = id; c.appendChild(el("p", null, p.text || "")); c.appendChild(el("span", null, ROLE[r] + (p.name ? " · " + p.name : "")));
     box.appendChild(c);
   });
 }
