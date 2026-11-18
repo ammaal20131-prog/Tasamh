@@ -329,11 +329,10 @@ footer a{color:inherit}
       <svg class="fp" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 30V22a16 16 0 0 1 32 0v8"/><path d="M13 33V22a11 11 0 0 1 22 0v11"/><path d="M18 36V22a6 6 0 0 1 12 0v14"/><path d="M24 22v16"/><path d="M21 39.500V26M27 39.500V26"/></svg>
     </button>
     <span class="lbl" id="pressLbl">اضغطي باستمرار</span>
-    <button class="skip" id="skip" type="button">دخول بلا صوت</button>
   </div>
 </div>
 <audio id="introAudio" src="intro.mp3" preload="auto"></audio>
-<audio id="musicAudio" src="music.mp3" preload="none" loop></audio>
+<audio id="musicAudio" src="music.mp3" preload="auto" loop></audio>
 <button class="fab" id="fab" type="button" aria-label="تشغيل الصوت"><b>♪</b><span id="fabT" hidden></span></button>
 
 <header class="top">
@@ -806,42 +805,64 @@ $("#famForm").addEventListener("submit", function(e){
     .then(ok => { if(ok){ $("#famText").value = ""; $("#famText")._up(); } });
 });
 
-/* ---------- بصمة الدخول والصوت ---------- */
+/* ---------- بصمة الدخول والصوت (يعمل تلقائيًا) ---------- */
 (function(){
   const sp = $("#splash"), h = $("#press"), intro = $("#introAudio"), music = $("#musicAudio"), fab = $("#fab"), fabT = $("#fabT");
-  let t = null, noIntro = false, noMusic = false;
-  intro.addEventListener("error", () => { noIntro = true; $("#replay").hidden = true; $("#skip").textContent = "دخول"; paint(); });
+  let t = null, noIntro = false, noMusic = false, waiting = false;
+  const SS = { get(k){ try{ return sessionStorage.getItem(k); }catch(e){ return null; } }, set(k, v){ try{ sessionStorage.setItem(k, v); }catch(e){} } };
+  let muted = SS.get("tsm-mute") === "1";
+  music.volume = .7;
+  intro.addEventListener("error", () => { noIntro = true; $("#replay").hidden = true; paint(); });
   music.addEventListener("error", () => { noMusic = true; paint(); });
   const playing = a => !a.paused && !a.ended;
   function paint(){
     const i = playing(intro), m = playing(music);
     fab.classList.toggle("on", i || m); fabT.hidden = !(i || m);
     fabT.textContent = i ? "إيقاف المقولة" : "إيقاف الصوت";
-    fab.setAttribute("aria-label", i || m ? fabT.textContent : "تشغيل الخلفية الصوتية");
-    fab.hidden = noMusic && !i;
+    fab.setAttribute("aria-label", i || m ? fabT.textContent : "تشغيل الصوت");
+    fab.hidden = noMusic && noIntro;
   }
   ["play", "pause", "ended"].forEach(ev => { intro.addEventListener(ev, paint); music.addEventListener(ev, paint); });
-  function playIntro(){ music.pause(); try{ intro.currentTime = 0; }catch(e){} const p = intro.play(); if(p && p.catch) p.catch(() => {}); }
-  fab.addEventListener("click", () => {
-    if(playing(intro) || playing(music)){ intro.pause(); music.pause(); }
-    else { const p = music.play(); if(p && p.catch) p.catch(() => { noMusic = true; paint(); }); }
+  function tryPlay(a){
+    const p = a.play();
+    if(p && p.catch) p.catch(() => { if(!noMusic && !noIntro) armGesture(a); });
+  }
+  /* إن منع المتصفح التشغيل التلقائي، يبدأ الصوت مع أول لمسة في الصفحة */
+  function armGesture(a){
+    if(waiting) return; waiting = true;
+    const go = () => { waiting = false; ["pointerdown", "keydown", "touchstart"].forEach(ev => removeEventListener(ev, go, true)); if(!muted) tryPlay(a); };
+    ["pointerdown", "keydown", "touchstart"].forEach(ev => addEventListener(ev, go, { capture: true, once: true }));
+  }
+  function playMusic(){ if(muted || noMusic) return; intro.pause(); tryPlay(music); }
+  function playIntro(){ music.pause(); try{ intro.currentTime = 0; }catch(e){} if(noIntro) return playMusic(); tryPlay(intro); }
+  intro.addEventListener("ended", () => { SS.set("tsm-intro", "1"); playMusic(); });
+  fab.addEventListener("click", e => {
+    e.stopPropagation();
+    if(playing(intro) || playing(music)){ muted = true; SS.set("tsm-mute", "1"); intro.pause(); music.pause(); }
+    else { muted = false; SS.set("tsm-mute", "0"); SS.get("tsm-intro") || noIntro ? playMusic() : playIntro(); }
   });
-  $("#replay").addEventListener("click", () => playing(intro) ? intro.pause() : playIntro());
-  function enter(sound){
+  $("#replay").addEventListener("click", () => { if(playing(intro)) return intro.pause(); muted = false; SS.set("tsm-mute", "0"); playIntro(); });
+  function enter(){
     clearTimeout(t); t = null; h.classList.remove("go"); h.classList.add("done");
-    try{ sessionStorage.setItem("tsm-in", "1"); }catch(e){}
-    if(sound && !noIntro) playIntro();
+    SS.set("tsm-in", "1"); muted = false; SS.set("tsm-mute", "0");
+    playIntro();
     $("#pressLbl").textContent = "أهلًا بكِ"; FX.at(h, 60);
     setTimeout(() => sp.classList.add("out"), 650);
   }
   function stop(){ if(t){ clearTimeout(t); t = null; } h.classList.remove("go"); }
-  h.addEventListener("pointerdown", e => { e.preventDefault(); if(h.classList.contains("done")) return; stop(); h.classList.add("go"); t = setTimeout(() => enter(true), 1500); });
+  h.addEventListener("pointerdown", e => {
+    e.preventDefault(); if(h.classList.contains("done")) return; stop(); h.classList.add("go");
+    /* نبدأ الصوت بصمت داخل لمسة البصمة حتى تسمح به أجهزة آيفون، ثم نرفعه عند اكتمال الإطار */
+    intro.muted = true; const p = intro.play(); if(p && p.then) p.then(() => { if(!h.classList.contains("done")){ intro.pause(); } intro.muted = false; }).catch(() => { intro.muted = false; });
+    t = setTimeout(enter, 1500);
+  });
   ["pointerup", "pointerleave", "pointercancel"].forEach(ev => h.addEventListener(ev, stop));
   h.addEventListener("contextmenu", e => e.preventDefault());
-  h.addEventListener("keydown", e => { if((e.key === "Enter" || e.key === " ") && !h.classList.contains("done")){ e.preventDefault(); enter(true); } });
-  $("#skip").addEventListener("click", () => enter(false));
-  let seen = false; try{ seen = !!sessionStorage.getItem("tsm-in"); }catch(e){}
-  if(seen) sp.classList.add("out");
+  h.addEventListener("keydown", e => { if((e.key === "Enter" || e.key === " ") && !h.classList.contains("done")){ e.preventDefault(); enter(); } });
+  if(SS.get("tsm-in")){
+    sp.classList.add("out");
+    if(!muted) SS.get("tsm-intro") ? playMusic() : playIntro();
+  }
   paint();
 })();
 
