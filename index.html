@@ -42,13 +42,31 @@ button,input,textarea,select{font:inherit;color:inherit}
 .fab.on b{animation:beat 1s infinite}
 
 /* الرأس */
-.top .wrap{display:flex;align-items:center;gap:12px;padding-top:14px;padding-bottom:6px}
-.top img{height:46px;width:auto}
-.top .who{font-size:13px;line-height:1.6;color:var(--soft)}
-.top .who b{display:block;color:var(--plum);font-size:15px}
-.title{text-align:center;padding:10px 0 18px}
-.title h1{font-size:clamp(38px,7vw,64px)}
-.title p{font-size:clamp(16px,2.4vw,20px);font-weight:500;color:var(--plum)}
+/* الشريط العلوي */
+.top{background:rgba(255,255,255,.85);backdrop-filter:blur(8px);border-bottom:4px solid transparent;border-image:linear-gradient(90deg,var(--violet),var(--gold),var(--rose)) 1}
+.top .wrap{display:flex;align-items:center;gap:16px;padding-top:12px;padding-bottom:12px}
+.top img{height:62px;width:auto;flex:none}
+.pill{flex:1;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px 0;background:linear-gradient(135deg,var(--plum),#4a2a6e);color:#e9def7;border-radius:99px;padding:9px 22px;font-size:13.5px;box-shadow:var(--shadow)}
+.pill span{padding:0 14px;line-height:1.7}
+.pill span+span{border-inline-start:1px solid rgba(255,255,255,.25)}
+.pill b{color:#fff}
+.pill .sch{color:#ffd27a;font-weight:800}
+/* الواجهة */
+.hero{text-align:center;padding:46px 0 10px}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;background:#fff;color:var(--rose);font-weight:800;font-size:15px;padding:7px 22px;border-radius:99px;box-shadow:0 6px 18px rgba(214,36,110,.14)}
+.eyebrow::before,.eyebrow::after{content:"";width:7px;height:7px;border-radius:50%;background:linear-gradient(135deg,var(--rose),var(--gold))}
+.hero h1{font-size:clamp(40px,7.4vw,74px);font-weight:900;line-height:1.35;margin:18px 0 0}
+.hero h1 span{-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.hero h1 .a{background-image:linear-gradient(90deg,var(--rose),var(--violet))}
+.hero h1 .b{background-image:linear-gradient(90deg,#ff7a45,var(--gold))}
+.hero p{max-width:620px;margin:16px auto 26px;color:var(--ink);font-size:18px;font-weight:300}
+.go{display:inline-block;text-decoration:none;font-weight:800;font-size:17px;color:#a3134f;background:linear-gradient(135deg,var(--blush),#fbf1dc);border:1.5px solid #f6c3d7;padding:12px 32px;border-radius:16px;box-shadow:0 8px 20px rgba(214,36,110,.14);transition:transform .2s}
+.go:hover{transform:translateY(-2px)}
+.friends{display:block;width:min(620px,96%);margin:30px auto 0}
+.friends .g{animation:sway2 3.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center bottom}
+.friends .g:nth-of-type(even){animation-delay:1.6s}
+.friends .h{animation:beat 1.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes sway2{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
 
 /* الشجرة */
 .stage{display:grid;grid-template-columns:1.35fr .65fr;gap:22px;align-items:start;padding-bottom:40px}
@@ -112,7 +130,7 @@ textarea:focus,input:focus,select:focus{outline:0;border-color:var(--violet);box
 /* لوحة المعلمة */
 #teacher{display:none;padding:28px 0 60px}
 body.tmode #teacher{display:block}
-body.tmode main>.stage,body.tmode main>.title,body.tmode main>.wallsec,body.tmode main>.band,body.tmode .bnav{display:none}
+body.tmode main>.stage,body.tmode main>.hero,body.tmode main>.wallsec,body.tmode main>.band,body.tmode .bnav{display:none}
 body.tmode{padding-bottom:0}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
 
@@ -217,7 +235,10 @@ footer a{color:inherit}
   .bnav .lg{display:none}
   .stage{grid-template-columns:1fr}
   .tiles{grid-template-columns:repeat(2,1fr)}
-  .top .wrap{justify-content:center;text-align:center}
+  .top .wrap{flex-direction:column;gap:8px}
+  .top img{height:52px}
+  .pill{border-radius:20px;font-size:12.5px;padding:8px 10px}
+  .pill span{padding:0 9px}
 }
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
@@ -233,15 +254,47 @@ footer a{color:inherit}
 <header class="top">
   <div class="wrap">
     <img id="hdLogo" src="logo.png" alt="وزارة التعليم">
-    <div class="who"><span id="hdDept">الإدارة العامة للتعليم بمنطقة عسير</span><b id="hdSchool">متوسطة خيبر الجنوب</b></div>
+    <div class="pill">
+      <span class="sch" id="hdSchool">متوسطة خيبر الجنوب</span>
+      <span id="hdDept">الإدارة العامة للتعليم بمنطقة عسير</span>
+      <span>منفذة المبادرة: <b id="hdTeacher"></b></span>
+      <span>مديرة المدرسة: <b id="hdPrincipal"></b></span>
+    </div>
   </div>
 </header>
 
 <main class="wrap">
-  <div class="title" id="home">
-    <h1 class="grad">شجرة التسامح</h1>
-    <p>«بالتسامح نرتقي، وبالمحبة نلتقي»</p>
-  </div>
+  <section class="hero" id="home">
+    <span class="eyebrow">اليوم العالمي للتسامح</span>
+    <h1><span class="a">بالتسامح نرتقي</span><br><span class="b">وبالمحبة نلتقي</span></h1>
+    <p>رحلة جميلة لكِ يا صديقتي، تتعرّفين فيها على قيمة التسامح وثمراته، ثم تزرعين ورقتكِ في شجرة مدرستنا</p>
+    <a class="go" href="#verses">ابدئي الرحلة</a>
+    <svg class="friends" viewBox="0 0 640 196" role="img" aria-label="طالبات يمسكن بأيدي بعضهن">
+      <defs>
+        <g id="girl">
+          <path d="M-21 72 Q0 63 21 72 L37 162 Q0 173 -37 162 Z" fill="currentColor"/>
+          <path d="M-28 47 Q-28 13 0 13 Q28 13 28 47 Q28 73 0 77 Q-28 73 -28 47 Z" fill="currentColor" opacity=".8"/>
+          <ellipse cx="0" cy="46" rx="14.5" ry="16.5" fill="#f7d6bd"/>
+          <circle cx="-5.5" cy="44" r="2" fill="#3a2a46"/><circle cx="5.5" cy="44" r="2" fill="#3a2a46"/>
+          <path d="M-5 52 Q0 56.5 5 52" stroke="#c0566f" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <circle cx="-9.5" cy="51" r="2.8" fill="#f4a3b8" opacity=".7"/><circle cx="9.5" cy="51" r="2.8" fill="#f4a3b8" opacity=".7"/>
+          <rect x="-16" y="162" width="10" height="16" rx="4" fill="#3a2a46"/><rect x="6" y="162" width="10" height="16" rx="4" fill="#3a2a46"/>
+        </g>
+        <path id="heart" d="M0 6 C-8 -2 -14 -8 -8 -13 C-4 -16 0 -13 0 -10 C0 -13 4 -16 8 -13 C14 -8 8 -2 0 6Z"/>
+      </defs>
+      <g stroke="#f7d6bd" stroke-width="9" fill="none" stroke-linecap="round">
+        <path d="M88 90 Q128 134 168 90"/><path d="M208 90 Q248 134 288 90"/><path d="M328 90 Q368 134 408 90"/><path d="M448 90 Q488 134 528 90"/>
+        <path d="M48 90 Q28 72 24 46"/><path d="M588 90 Q608 72 612 46"/>
+      </g>
+      <g fill="#efc3a4"><circle cx="128" cy="112" r="9"/><circle cx="248" cy="112" r="9"/><circle cx="368" cy="112" r="9"/><circle cx="488" cy="112" r="9"/><circle cx="24" cy="42" r="8"/><circle cx="612" cy="42" r="8"/></g>
+      <use href="#girl" class="g" x="68" y="0" style="color:#f48fb1"/>
+      <use href="#girl" class="g" x="188" y="0" style="color:#b39ddb"/>
+      <use href="#girl" class="g" x="308" y="0" style="color:#ffc145"/>
+      <use href="#girl" class="g" x="428" y="0" style="color:#7ec8e3"/>
+      <use href="#girl" class="g" x="548" y="0" style="color:#ce93d8"/>
+      <g fill="#dc5b91"><use href="#heart" class="h" x="128" y="82"/><use href="#heart" class="h" x="248" y="82"/><use href="#heart" class="h" x="368" y="82"/><use href="#heart" class="h" x="488" y="82"/></g>
+    </svg>
+  </section>
 
   <section class="band" id="verses">
     <span class="kicker">من نور الوحي</span>
@@ -268,7 +321,12 @@ footer a{color:inherit}
     <div class="fruits" id="fruitCards"></div>
   </section>
 
-  <div class="stage" id="tree">
+  <div class="band" id="tree" style="padding-bottom:0">
+    <span class="kicker">ازرعي ورقتكِ</span>
+    <h2>شجرة التسامح</h2>
+    <div class="bar-line"></div>
+  </div>
+  <div class="stage">
     <div class="tree-box">
       <span class="count"><b id="gNow">٠</b> ورقة</span>
       <svg id="treeSvg" viewBox="0 0 800 780" role="img" aria-label="شجرة التسامح"></svg>
@@ -383,6 +441,7 @@ const okImg = s => typeof s === "string" && /^data:image\/(jpeg|png|webp);base64
 
 $("#gGoal").textContent = AR(GOAL);
 $("#hdDept").textContent = SITE.dept; $("#hdSchool").textContent = SITE.school;
+$("#hdTeacher").textContent = (SITE.teacher || "").replace(/^أ\/\s*/, "أ. "); $("#hdPrincipal").textContent = (SITE.principal || "").replace(/^أ\/\s*/, "أ. ");
 $("#footDept").textContent = SITE.dept; $("#footSchool").textContent = SITE.school;
 $("#credits").textContent = [SITE.principal && "مديرة المدرسة: " + SITE.principal, SITE.teacher && "منفذة المبادرة: " + SITE.teacher].filter(Boolean).join(" · ");
 [["#hdLogo", null]].forEach(l => {
