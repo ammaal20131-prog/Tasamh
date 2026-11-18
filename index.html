@@ -32,30 +32,8 @@ button,input,textarea,select{font:inherit;color:inherit}
 .banner{background:var(--warn-bg);color:var(--warn);font-size:13px;padding:7px 16px;text-align:center;line-height:1.7}
 
 /* شاشة الدخول */
-.splash{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:24px;text-align:center;overflow:auto;background:radial-gradient(700px 500px at 100% 100%,#f6ecfb 0,transparent 70%),radial-gradient(600px 420px at 0 0,#fdeef4 0,transparent 70%),#fff;transition:opacity .7s,visibility .7s}
-.splash.out{opacity:0;visibility:hidden;pointer-events:none}
-body.tmode .splash{display:none}
-.splash .in{display:grid;justify-items:center;gap:6px;max-width:520px}
-.splash .logo{height:150px;width:auto;margin-bottom:4px}
-.splash .min{font-size:22px;font-weight:700;color:var(--violet)}
-.splash .dept{font-size:15px;font-weight:500;color:var(--soft)}
-.splash h2{font-size:22px}
 .grad{font-weight:900;line-height:1.25;background:linear-gradient(90deg,var(--violet),var(--rose));-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
-.splash h1{font-size:clamp(46px,12vw,84px);margin:6px 0 0}
-.splash p{font-weight:300;font-size:17px}
-.press{position:relative;width:170px;height:170px;margin-top:26px;border:0;border-radius:50%;cursor:pointer;background:#fff;box-shadow:0 24px 50px -22px rgba(111,63,168,.55);touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;display:grid;place-items:center}
-.press svg.ring{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
-.press .ring circle{fill:none;stroke-width:6}
-.press .ring .bg{stroke:var(--mist)}
-.press .ring .fg{stroke:var(--rose);stroke-linecap:round;stroke-dasharray:503;stroke-dashoffset:503;transition:stroke-dashoffset .3s}
-.press.go .ring .fg{stroke-dashoffset:0;transition:stroke-dashoffset 1.5s linear}
-.press.done .ring .fg{stroke-dashoffset:0;stroke:var(--violet)}
-.press .fp{width:84px;height:84px;fill:none;stroke:var(--violet);stroke-width:2.2;stroke-linecap:round;transition:stroke .3s}
-.press.go .fp{stroke:var(--rose)}
-.press:not(.go):not(.done){animation:breath 2.4s ease-in-out infinite}
-@keyframes breath{0%,100%{box-shadow:0 24px 50px -22px rgba(111,63,168,.55),0 0 0 0 rgba(220,91,145,.25)}50%{box-shadow:0 24px 50px -22px rgba(111,63,168,.55),0 0 0 16px rgba(220,91,145,0)}}
 @keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.13)}}
-.splash .lbl{font-weight:700;font-size:15px;color:var(--soft);margin-top:10px}
 
 /* زر الصوت */
 .fab{position:fixed;z-index:45;bottom:96px;inset-inline-start:18px;display:flex;align-items:center;gap:8px;border:0;cursor:pointer;background:var(--violet);color:#fff;font-weight:700;font-size:13px;height:46px;min-width:46px;justify-content:center;padding:0 14px;border-radius:99px;box-shadow:0 14px 28px -12px var(--violet)}
@@ -229,6 +207,8 @@ footer b{color:var(--plum);font-weight:500}
 footer a{color:inherit}
 
 @media (max-width:860px){
+  .fab{width:46px;padding:0;bottom:92px}
+  .fab span{display:none!important}
   .fruits{grid-template-columns:repeat(2,1fr);gap:12px}
   .fruit{height:180px}
   .vcard{padding:28px 20px 80px}
@@ -237,7 +217,6 @@ footer a{color:inherit}
   .bnav .lg{display:none}
   .stage{grid-template-columns:1fr}
   .tiles{grid-template-columns:repeat(2,1fr)}
-  .splash .logo{height:120px}
   .top .wrap{justify-content:center;text-align:center}
 }
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
@@ -248,23 +227,7 @@ footer a{color:inherit}
 <div class="banner" id="errBanner" hidden></div>
 <canvas id="fx" aria-hidden="true"></canvas>
 
-<div class="splash" id="splash">
-  <div class="in">
-    <img class="logo" id="spLogo" src="logo.png" alt="وزارة التعليم">
-    <span class="min" id="spMin" hidden>وزارة التعليم</span>
-    <span class="dept" id="spDept">الإدارة العامة للتعليم بمنطقة عسير</span>
-    <h2 id="spSchool">متوسطة خيبر الجنوب</h2>
-    <h1 class="grad">التسامح يجمعنا</h1>
-    <p>ضعي إصبعك على البصمة واستمري بالضغط حتى يكتمل الإطار</p>
-    <button class="press" id="press" type="button" aria-label="اضغطي باستمرار على البصمة للدخول">
-      <svg class="ring" viewBox="0 0 170 170"><circle class="bg" cx="85" cy="85" r="80"/><circle class="fg" cx="85" cy="85" r="80"/></svg>
-      <svg class="fp" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 30V22a16 16 0 0 1 32 0v8"/><path d="M13 33V22a11 11 0 0 1 22 0v11"/><path d="M18 36V22a6 6 0 0 1 12 0v14"/><path d="M24 22v16"/><path d="M21 39.500V26M27 39.500V26"/></svg>
-    </button>
-    <span class="lbl" id="pressLbl">اضغطي باستمرار</span>
-  </div>
-</div>
-<audio id="introAudio" src="intro.mp3" preload="auto"></audio>
-<audio id="musicAudio" src="music.mp3" preload="auto" loop></audio>
+<audio id="song" src="song.mp3" preload="auto" loop></audio>
 <button class="fab" id="fab" type="button" aria-label="تشغيل الصوت"><b>♪</b><span id="fabT" hidden></span></button>
 
 <header class="top">
@@ -419,11 +382,10 @@ const roleOf = p => ROLE[p.role] ? p.role : "student";
 const okImg = s => typeof s === "string" && /^data:image\/(jpeg|png|webp);base64,/.test(s);
 
 $("#gGoal").textContent = AR(GOAL);
-$("#spSchool").textContent = SITE.school; $("#spDept").textContent = SITE.dept;
 $("#hdDept").textContent = SITE.dept; $("#hdSchool").textContent = SITE.school;
 $("#footDept").textContent = SITE.dept; $("#footSchool").textContent = SITE.school;
 $("#credits").textContent = [SITE.principal && "مديرة المدرسة: " + SITE.principal, SITE.teacher && "منفذة المبادرة: " + SITE.teacher].filter(Boolean).join(" · ");
-[["#spLogo", "#spMin"], ["#hdLogo", null]].forEach(l => {
+[["#hdLogo", null]].forEach(l => {
   const im = $(l[0]), bad = () => { im.hidden = true; if(l[1]) $(l[1]).hidden = false; };
   if(im.complete && !im.naturalWidth) bad(); else im.addEventListener("error", bad);
 });
@@ -555,69 +517,24 @@ $("#leafForm").addEventListener("submit", function(e){
     .then(() => btn.disabled = false);
 });
 
-/* ---------- بصمة الدخول والصوت (يعمل تلقائيًا) ---------- */
+/* ---------- الصوت: يعمل تلقائيًا ---------- */
 (function(){
-  const behind = ["header.top", "main", "footer"].map(q => $(q)).filter(Boolean);
-  const lockBehind = on => behind.forEach(n => { if(on) n.setAttribute("inert", ""); else n.removeAttribute("inert"); });
-  const sp = $("#splash"), h = $("#press"), intro = $("#introAudio"), music = $("#musicAudio"), fab = $("#fab"), fabT = $("#fabT");
-  let t = null, noIntro = false, noMusic = false, waiting = false;
-  const SS = { get(k){ try{ return sessionStorage.getItem(k); }catch(e){ return null; } }, set(k, v){ try{ sessionStorage.setItem(k, v); }catch(e){} } };
-  let muted = SS.get("tsm-mute") === "1";
-  music.volume = .7;
-  intro.addEventListener("error", () => { noIntro = true; paint(); });
-  music.addEventListener("error", () => { noMusic = true; paint(); });
-  const playing = a => !a.paused && !a.ended;
-  function paint(){
-    const i = playing(intro), m = playing(music);
-    fab.classList.toggle("on", i || m); fabT.hidden = !(i || m);
-    fabT.textContent = i ? "إيقاف المقولة" : "إيقاف الصوت";
-    fab.setAttribute("aria-label", i || m ? fabT.textContent : "تشغيل الصوت");
-    fab.hidden = noMusic && noIntro;
-  }
-  ["play", "pause", "ended"].forEach(ev => { intro.addEventListener(ev, paint); music.addEventListener(ev, paint); });
-  function tryPlay(a){
-    const p = a.play();
-    if(p && p.catch) p.catch(() => { if(!noMusic && !noIntro) armGesture(a); });
-  }
-  /* إن منع المتصفح التشغيل التلقائي، يبدأ الصوت مع أول لمسة في الصفحة */
-  function armGesture(a){
-    if(waiting) return; waiting = true;
-    const go = () => { waiting = false; ["pointerdown", "keydown", "touchstart"].forEach(ev => removeEventListener(ev, go, true)); if(!muted) tryPlay(a); };
-    ["pointerdown", "keydown", "touchstart"].forEach(ev => addEventListener(ev, go, { capture: true, once: true }));
-  }
-  function playMusic(){ if(muted || noMusic) return; intro.pause(); tryPlay(music); }
-  function playIntro(){ music.pause(); try{ intro.currentTime = 0; }catch(e){} if(noIntro) return playMusic(); tryPlay(intro); }
-  intro.addEventListener("ended", () => { SS.set("tsm-intro", "1"); playMusic(); });
+  const a = $("#song"), fab = $("#fab"), fabT = $("#fabT");
+  let muted = false; try{ muted = sessionStorage.getItem("tsm-mute") === "1"; }catch(e){}
+  a.volume = .7;
+  const playing = () => !a.paused && !a.ended;
+  function paint(){ const on = playing(); fab.classList.toggle("on", on); fabT.hidden = !on; fabT.textContent = "إيقاف الصوت"; fab.setAttribute("aria-label", on ? "إيقاف الصوت" : "تشغيل الصوت"); }
+  ["play", "pause", "ended"].forEach(ev => a.addEventListener(ev, paint));
+  a.addEventListener("error", () => { fab.hidden = true; });
+  function tryPlay(){ if(muted || playing()) return; const p = a.play(); if(p && p.catch) p.catch(() => {}); }
+  /* المتصفحات لا تسمح بالصوت قبل أول لمسة، فيبدأ مع أول لمسة أو ضغطة في أي مكان */
+  ["pointerdown", "touchstart", "keydown", "click"].forEach(ev => addEventListener(ev, tryPlay, { capture: true, passive: true }));
   fab.addEventListener("click", e => {
     e.stopPropagation();
-    if(playing(intro) || playing(music)){ muted = true; SS.set("tsm-mute", "1"); intro.pause(); music.pause(); }
-    else { muted = false; SS.set("tsm-mute", "0"); SS.get("tsm-intro") || noIntro ? playMusic() : playIntro(); }
-  });
-  function enter(){
-    clearTimeout(t); t = null; h.classList.remove("go"); h.classList.add("done");
-    SS.set("tsm-in", "1"); muted = false; SS.set("tsm-mute", "0");
-    playIntro();
-    $("#pressLbl").textContent = "أهلًا بكِ"; FX.at(h, 60);
-    setTimeout(() => { sp.classList.add("out"); lockBehind(false); }, 650);
-  }
-  function stop(){ if(t){ clearTimeout(t); t = null; } h.classList.remove("go"); }
-  h.addEventListener("pointerdown", e => {
-    e.preventDefault(); if(h.classList.contains("done")) return; stop(); h.classList.add("go");
-    /* نبدأ الصوت بصمت داخل لمسة البصمة حتى تسمح به أجهزة آيفون، ثم نرفعه عند اكتمال الإطار */
-    intro.muted = true; const p = intro.play(); if(p && p.then) p.then(() => { if(!h.classList.contains("done")){ intro.pause(); } intro.muted = false; }).catch(() => { intro.muted = false; });
-    t = setTimeout(enter, 1500);
-  });
-  ["pointerup", "pointerleave", "pointercancel"].forEach(ev => h.addEventListener(ev, stop));
-  h.addEventListener("contextmenu", e => e.preventDefault());
-  h.addEventListener("keydown", e => { if((e.key === "Enter" || e.key === " ") && !h.classList.contains("done")){ e.preventDefault(); enter(); } });
-  const tmode = location.hash === "#teacher";
-  if(!SS.get("tsm-in") && !tmode) lockBehind(true);
-  addEventListener("hashchange", () => { if(location.hash === "#teacher") lockBehind(false); });
-  if(SS.get("tsm-in")){
-    sp.classList.add("out");
-    if(!muted) SS.get("tsm-intro") ? playMusic() : playIntro();
-  }
-  paint();
+    muted = playing(); try{ sessionStorage.setItem("tsm-mute", muted ? "1" : "0"); }catch(x){}
+    muted ? a.pause() : tryPlay();
+  }, true);
+  tryPlay(); paint();
 })();
 
 /* ---------- الشجرة ---------- */
